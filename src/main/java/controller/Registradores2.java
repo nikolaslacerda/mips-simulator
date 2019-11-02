@@ -12,7 +12,9 @@ public class Registradores2 {
         }
         return uniqueInstance;
     }
+	
 	public Registradores2() {
+		ListaDeRegistradores = new ArrayList<Registrador2>();
 		Registrador2 reg0 = new Registrador2("$zero",0,0);
 		Registrador2 reg1 = new Registrador2("$at",1,0);
 		Registrador2 reg2 = new Registrador2("$v0",2,0);
