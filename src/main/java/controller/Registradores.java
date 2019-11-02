@@ -7,6 +7,7 @@ public class Registradores {
 
     private Map<String, Integer> listaDeRegistradores;
     private Map<String, Integer> listaDeRegistradoresNumeros;
+    private static Registradores instance;
 
     public Registradores() {
         this.listaDeRegistradores = new HashMap<String, Integer>();
@@ -81,6 +82,13 @@ public class Registradores {
         listaDeRegistradoresNumeros.put("$fp", 30);
         listaDeRegistradoresNumeros.put("$ra", 31);
 
+    }
+
+    public static Registradores getInstance() {
+        if (instance == null) {
+            instance = new Registradores();
+        }
+        return instance;
     }
 
     public void setValue(String registrador, int valor) throws Exception {

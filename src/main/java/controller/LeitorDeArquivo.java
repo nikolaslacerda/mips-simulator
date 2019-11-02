@@ -62,7 +62,7 @@ public class LeitorDeArquivo {
     //Converte uma instrução para sua representação binária
     public String codificaInstrucao(String instrucao) throws Exception {
 
-        Registradores listaDeR = new Registradores();
+        Registradores listaDeR = Registradores.getInstance();
 
         String instrucaoAtual = instrucao.split(" ")[0];
         String[] registradores = instrucao.split(" ")[1].split(",");

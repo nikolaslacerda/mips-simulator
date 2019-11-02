@@ -41,4 +41,12 @@ public class MemoriaDeInstrucoes {
     public int getPosAtual(){
         return this.posAtual;
     }
+
+    //Imprime
+    public void imprime(){
+        System.out.println("### Memoria de Instrucoes ###");
+        for (int i = 0; i < posAtual; i++) {
+            System.out.println(memoria[i]);
+        }
+    }
 }
