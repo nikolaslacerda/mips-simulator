@@ -1,7 +1,13 @@
 package app;
 
+<<<<<<< HEAD
 
 import controller.*;
+=======
+import controller.LeitorDeArquivo;
+import controller.Registradores2;
+import controller.SinaisDeControle;
+>>>>>>> aa268149ac66266644dd150c0b9b1ee39fb6260c
 
 public class App {
 
@@ -23,11 +29,5 @@ public class App {
 			e.printStackTrace();
 		}
 
-	}
-	
-	public void LeituraArquivo() {
-		
-	}
-
-	
+	}	
 }

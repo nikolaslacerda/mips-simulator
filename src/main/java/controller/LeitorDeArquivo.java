@@ -9,10 +9,10 @@ public class LeitorDeArquivo {
     //Caminho do arquivo .mips
     private String caminho;
 
-    //Memória de Instruções
+    //Memoria de Instrucoes
     private MemoriaDeInstrucoes memoriaDeIntrucoes = MemoriaDeInstrucoes.getInstance();
 
-    //Memória de Dados
+    //Memoria de Dados
     private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
 
     //Construtor
@@ -20,7 +20,7 @@ public class LeitorDeArquivo {
         caminho = "/mipsTest.mips";
     }
 
-    //Executa a leitura do arquivo armazenando os dados e as instruções na memória
+    //Executa a leitura do arquivo armazenando os dados e as instrucoes na memoria
     public void lePrograma() throws Exception {
         Scanner in = new Scanner(new File(LeitorDeArquivo.class.getResource("/mipsTest.mips").toURI()));
         String linhaAtual;
@@ -59,7 +59,7 @@ public class LeitorDeArquivo {
         }
     }
 
-    //Converte uma instrução para sua representação binária
+    //Converte uma instrucao para sua representacao binaria
     public String codificaInstrucao(String instrucao) throws Exception {
 
         Registradores listaDeR = Registradores.getInstance();
@@ -135,7 +135,7 @@ public class LeitorDeArquivo {
         }
     }
 
-    //Converte um binário para 16 bits
+    //Converte um binario para 16 bits
     public String to16Bits(String bin) throws Exception {
         if (bin.length() < 16) {
             int zerosFaltantes = 16 - bin.length();
@@ -151,7 +151,7 @@ public class LeitorDeArquivo {
         }
     }
 
-    //Converte um binário para 16 bits
+    //Converte um binario para 16 bits
     public String to26Bits(String bin) throws Exception {
         if (bin.length() < 26) {
             int zerosFaltantes = 26 - bin.length();
@@ -167,7 +167,7 @@ public class LeitorDeArquivo {
         }
     }
 
-    //Retorna o número de linhas da label para a instrução j
+    //Retorna o numero de linhas da label para a instrucao j
     public String getTarget(String label) throws FileNotFoundException {
         int contador = 0;
         Scanner in2 = new Scanner(new File(caminho));
@@ -177,7 +177,7 @@ public class LeitorDeArquivo {
             if (linhaAtual.equals(".text")) {
                 while (!linhaAtual.equals(".data")) {
                     if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
-                        continue; //Ignora linha em branco, comentário e o globl main
+                        continue; //Ignora linha em branco, comentario e o globl main
                     }
                     if(linhaAtual.equals(label + ":")){
                         return Integer.toBinaryString(contador);
@@ -193,7 +193,7 @@ public class LeitorDeArquivo {
         return Integer.toBinaryString(contador);
     }
 
-    //Retorna o número de linhas da label para a instrução beq
+    //Retorna o numero de linhas da label para a instrucao beq
     public String getOffset(String label) {
         return "Tem que implementar";
     }

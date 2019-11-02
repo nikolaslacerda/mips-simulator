@@ -5,13 +5,13 @@ public class MemoriaDeInstrucoes {
     //Singleton
     private static MemoriaDeInstrucoes instance;
 
-    //Array da memória de instruções
+    //Array da memoria de instrucoes
     private String[] memoria;
 
-    //Tamanho da memória
+    //Tamanho da memoria
     private static int SIZE = 100000;
 
-    //Posição do último dado
+    //Posicao do ultimo dado
     private int posAtual = 0;
 
     //Construtor
