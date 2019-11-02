@@ -2,14 +2,15 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-public class Registradores {
+public class BancoDeRegistradores {
 
     private Map<String, Integer> listaDeRegistradores;
     private Map<String, Integer> listaDeRegistradoresNumeros;
-    private static Registradores instance;
+    private static BancoDeRegistradores instance;
 
-    public Registradores() {
+    public BancoDeRegistradores() {
         this.listaDeRegistradores = new HashMap<String, Integer>();
         this.listaDeRegistradoresNumeros = new HashMap<String, Integer>();
 
@@ -84,9 +85,9 @@ public class Registradores {
 
     }
 
-    public static Registradores getInstance() {
+    public static BancoDeRegistradores getInstance() {
         if (instance == null) {
-            instance = new Registradores();
+            instance = new BancoDeRegistradores();
         }
         return instance;
     }
@@ -127,6 +128,17 @@ public class Registradores {
         for (Map.Entry<String, Integer> entry : listaDeRegistradores.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
+    }
+    
+    public void setRegistrador(String reg,int valor) { //recebe reg em binario
+    	String key="";
+    	for(Map.Entry<String,Integer> entry: listaDeRegistradoresNumeros.entrySet()) { 
+            if(entry.getValue()==valor) {
+            	key = entry.getKey();
+            	break;
+            }
+        }
+    	listaDeRegistradores.put(key, valor);	
     }
 
 }

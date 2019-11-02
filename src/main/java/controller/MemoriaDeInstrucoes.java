@@ -37,12 +37,16 @@ public class MemoriaDeInstrucoes {
         return this.memoria[pos];
     }
 
-    //Posição que está a última instrução
+    //Posicao que esta a ulltima instrucao
     public int getPosAtual(){
         return this.posAtual;
     }
+    
+    public String[] getMemoria() {
+		return memoria;
+	}
 
-    //Imprime
+	//Imprime
     public void imprime(){
         System.out.println("### Memoria de Instrucoes ###");
         for (int i = 0; i < posAtual; i++) {
