@@ -2,7 +2,8 @@
 .globl main
 main:
 addu $t0,$t1,$t2
+addu $s0,$s1,$t0
+addu $a0,$a1,$a2
 addiu $t1,$t2,5
-lui $s0,5
 .data
 a:   .word   11

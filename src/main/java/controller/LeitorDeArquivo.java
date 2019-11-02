@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LeitorDeArquivo {
@@ -16,28 +17,36 @@ public class LeitorDeArquivo {
 
     //Construtor
     public LeitorDeArquivo() {
-        caminho = "mipsTest.mips";
+        caminho = "/mipsTest.mips";
     }
 
     //Executa a leitura do arquivo armazenando os dados e as instruções na memória
     public void lePrograma() throws Exception {
-        Scanner in = new Scanner(new File(caminho));
+        Scanner in = new Scanner(new File(LeitorDeArquivo.class.getResource("/mipsTest.mips").toURI()));
         String linhaAtual;
         while (in.hasNextLine()) {
             linhaAtual = in.nextLine();
+            System.out.println(linhaAtual);
+
             if (linhaAtual.equals(".text")) {
+
                 while (!linhaAtual.equals(".data")) {
-                    if(linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#'){
+                    linhaAtual = in.nextLine();
+                    System.out.println(linhaAtual);
+                    if(linhaAtual.split(" ").length == 1){
+                        continue; //Ignora label
+                    }
+                    if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
                         continue; //Ignora linha em branco, comentário e o globl main
                     }
-                    linhaAtual = in.nextLine();
-                    String instrucaoBin = decoder(linhaAtual);
+
+                    String instrucaoBin = codificaInstrucao(linhaAtual);
                     memoriaDeIntrucoes.addInstruction(instrucaoBin);
                 }
             }
             if (linhaAtual.equals(".data")) {
                 while (in.hasNextLine()) {
-                    if(linhaAtual.length() == 0 || linhaAtual.charAt(0) == '#'){
+                    if (linhaAtual.length() == 0 || linhaAtual.charAt(0) == '#') {
                         continue; //Ignora linha em branco e comentário
                     }
                     linhaAtual = in.nextLine();
@@ -51,7 +60,7 @@ public class LeitorDeArquivo {
     }
 
     //Converte uma instrução para sua representação binária
-    public String decoder(String instrucao) throws Exception {
+    public String codificaInstrucao(String instrucao) throws Exception {
 
         Registradores listaDeR = new Registradores();
 
@@ -75,7 +84,7 @@ public class LeitorDeArquivo {
             String opcode = "001001";
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
-            String imm = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[2]));
+            String imm = Integer.toBinaryString(Integer.parseInt(registradores[2]));
             return opcode + to5Bits(rs) + to5Bits(rt) + to16Bits(imm);
 
         } else if (instrucaoAtual.equals("lw")) {
@@ -111,7 +120,7 @@ public class LeitorDeArquivo {
     }
 
     //Converte um binário para 5 bits
-    public String to5Bits(String bin) {
+    public String to5Bits(String bin) throws Exception {
         if (bin.length() < 5) {
             int zerosFaltantes = 5 - bin.length();
             String resultado = "";
@@ -119,13 +128,15 @@ public class LeitorDeArquivo {
                 resultado += "0";
             }
             return resultado + bin;
-        } else {
+        } else if (bin.length() == 5) {
             return bin;
+        } else {
+            throw new Exception("Registrador maior que 31????");
         }
     }
 
     //Converte um binário para 16 bits
-    public String to16Bits(String bin) {
+    public String to16Bits(String bin) throws Exception {
         if (bin.length() < 16) {
             int zerosFaltantes = 16 - bin.length();
             String resultado = "";
@@ -133,13 +144,15 @@ public class LeitorDeArquivo {
                 resultado += "0";
             }
             return resultado + bin;
-        } else {
+        } else if (bin.length() == 16) {
             return bin;
+        } else {
+            throw new Exception("Overflow");
         }
     }
 
     //Converte um binário para 16 bits
-    public String to26Bits(String bin) {
+    public String to26Bits(String bin) throws Exception {
         if (bin.length() < 26) {
             int zerosFaltantes = 26 - bin.length();
             String resultado = "";
@@ -147,18 +160,41 @@ public class LeitorDeArquivo {
                 resultado += "0";
             }
             return resultado + bin;
-        } else {
+        } else if (bin.length() == 26) {
             return bin;
+        } else {
+            throw new Exception("Overflow");
         }
     }
 
     //Retorna o número de linhas da label para a instrução j
-    public String getTarget(String label){
-        return "Tem que implementar";
+    public String getTarget(String label) throws FileNotFoundException {
+        int contador = 0;
+        Scanner in2 = new Scanner(new File(caminho));
+        String linhaAtual;
+        while (in2.hasNextLine()) {
+            linhaAtual = in2.nextLine();
+            if (linhaAtual.equals(".text")) {
+                while (!linhaAtual.equals(".data")) {
+                    if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
+                        continue; //Ignora linha em branco, comentário e o globl main
+                    }
+                    if(linhaAtual.equals(label + ":")){
+                        return Integer.toBinaryString(contador);
+                    }
+                    linhaAtual = in2.nextLine();
+                    String[] aux = linhaAtual.split(" ");
+                    if(aux.length > 1){
+                        contador++;
+                    }
+                }
+            }
+        }
+        return Integer.toBinaryString(contador);
     }
 
     //Retorna o número de linhas da label para a instrução beq
-    public String getOffset(String label){
+    public String getOffset(String label) {
         return "Tem que implementar";
     }
 }
