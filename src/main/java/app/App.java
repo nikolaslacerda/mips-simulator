@@ -1,29 +1,34 @@
 package app;
 
-<<<<<<< HEAD
 
 import controller.*;
-=======
 import controller.LeitorDeArquivo;
-import controller.Registradores2;
-import controller.SinaisDeControle;
->>>>>>> aa268149ac66266644dd150c0b9b1ee39fb6260c
+import controller.BlocoDeControle;
+
 
 public class App {
 
 	public static void main(String[] args) {
-		SinaisDeControle controle = SinaisDeControle.getInstance();
-		//Registradores2 regs = Registradores2.getInstance();
+		BlocoDeControle controle = BlocoDeControle.getInstance();
+
+		//Iniciando registradores
         Registradores listaDeRegistradores = Registradores.getInstance();
-		MemoriaDeInstrucoes m = MemoriaDeInstrucoes.getInstance();
 
+        //Iniciando a memoria de instrucoes
+		MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
 
+		//Iniciando a memoria de dados
+		MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
+
+		//Iniciando o leitor de arquivo
 		LeitorDeArquivo l = new LeitorDeArquivo();
 
 		try {
 
 			l.lePrograma();
-			m.imprime();
+			//memoriaDeInstrucoes.imprime();
+			memoriaDeDados.imprime();
+			//listaDeRegistradores.imprime();
 
 		} catch (Exception e) {
 			e.printStackTrace();

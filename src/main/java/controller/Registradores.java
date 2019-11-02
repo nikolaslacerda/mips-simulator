@@ -99,6 +99,14 @@ public class Registradores {
         }
     }
 
+    public void setValueBin(String registradorBin, int valor) throws Exception {
+        if (listaDeRegistradoresNumeros.containsValue(BinToInt(registradorBin))) {
+            String rAtual = listaDeRegistradoresNumeros
+        } else {
+            throw new Exception("Registrador Inválido!");
+        }
+    }
+
     public int getValue(String registrador) throws Exception {
         if (listaDeRegistradores.containsKey(registrador)) {
             return listaDeRegistradores.get(registrador);
@@ -116,14 +124,19 @@ public class Registradores {
     }
 
     public String getRegisterBin(String registrador) throws Exception {
-        if (listaDeRegistradoresNumeros.containsKey(registrador)) {
-            return Integer.toBinaryString(listaDeRegistradoresNumeros.get(registrador));
+        if (listaDeRegistradoresNumeros.containsValue(registrador)) {
+            for (Map.Entry<String, Integer> entry : listaDeRegistradoresNumeros.entrySet()) {
+                if (entry.getValue() == binToInt(registrador)){
+                    return entry.getKey();
+                };
+            }
         } else {
             throw new Exception("Registrador Inválido!");
         }
     }
 
-    public void printRegisters() {
+    public void imprime() {
+        System.out.println("### Registradores ###");
         for (Map.Entry<String, Integer> entry : listaDeRegistradores.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
