@@ -116,21 +116,14 @@ public class BancoDeRegistradores {
         }
     }
 
-    public String getRegisterBin(String registrador) throws Exception {
-        if (listaDeRegistradoresNumeros.containsKey(registrador)) {
-            return Integer.toBinaryString(listaDeRegistradoresNumeros.get(registrador));
-        } else {
-            throw new Exception("Registrador Inválido!");
-        }
-    }
-
-    public void printRegisters() {
+    public void imprime() {
+        System.out.println("### Registradores ###");
         for (Map.Entry<String, Integer> entry : listaDeRegistradores.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
     }
     
-    public void setRegistrador(String reg,int valor) { //recebe reg em binario
+    public void setRegBin(String reg,int valor) { //recebe reg em binario
     	String key="";
     	for(Map.Entry<String,Integer> entry: listaDeRegistradoresNumeros.entrySet()) { 
             if(entry.getValue()==valor) {

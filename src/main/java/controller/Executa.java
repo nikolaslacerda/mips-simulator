@@ -16,7 +16,7 @@ public class Executa {
 				String rt = instrucao.substring(12,17);
 				String rd = instrucao.substring(17,22);
 				int soma = ula.Soma2Binarios(rs,rt);
-				bancoDeRegistradores.setRegistrador(rd,soma);
+				bancoDeRegistradores.setRegBin(rd,soma);
 			
 			}
 			else if(instrucao.substring(0,7).equals("000000") && instrucao.substring(26,32).equals("100100")){//and

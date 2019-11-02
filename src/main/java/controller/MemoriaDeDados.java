@@ -42,4 +42,12 @@ public class MemoriaDeDados {
         return this.posAtual;
     }
 
+    //Imprime
+    public void imprime(){
+        System.out.println("### Memoria de Dados ###");
+        for (int i = 0; i < posAtual; i++) {
+            System.out.println(memoria[i]);
+            System.out.println("DDD");
+        }
+    }
 }
