@@ -24,7 +24,7 @@ public class ULA {
 		bancoDeRegistradores.setRegBin(rd,soma); //salva no banco de registradores em decimal
 	}
 	
-	public void CalculaEndereçoDeSalto() {}
+	public void CalculaEndereÃ§oDeSalto() {}
 	
 	public void And2Binarios(String b1,String b2,String rd) { //salva no banco de registradores em decimal
 		int x = bancoDeRegistradores.getValorRegBin(b1);

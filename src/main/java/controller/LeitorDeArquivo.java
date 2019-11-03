@@ -26,14 +26,13 @@ public class LeitorDeArquivo {
         String linhaAtual;
         while (in.hasNextLine()) {
             linhaAtual = in.nextLine();
-            System.out.println(linhaAtual);
 
             if (linhaAtual.equals(".text")) {
 
                 while (!linhaAtual.equals(".data")) {
                     linhaAtual = in.nextLine();
-                    System.out.println(linhaAtual);
-                    if(linhaAtual.split(" ").length == 1){
+
+                    if (linhaAtual.split(" ").length == 1) {
                         continue; //Ignora label
                     }
                     if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
@@ -62,6 +61,7 @@ public class LeitorDeArquivo {
     //Converte uma instrucao para sua representacao binaria
     public String codificaInstrucao(String instrucao) throws Exception {
 
+        ConversorDeBits converte = new ConversorDeBits();
         BancoDeRegistradores listaDeR = BancoDeRegistradores.getInstance();
 
         String instrucaoAtual = instrucao.split(" ")[0];
@@ -78,14 +78,14 @@ public class LeitorDeArquivo {
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[2]));
-            return opcode + to5Bits(rs) + to5Bits(rt) + to5Bits(rd) + "00000" + "100001";
+            return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to5Bits(rd) + "00000" + "100001";
 
         } else if (instrucaoAtual.equals("addiu")) {
             String opcode = "001001";
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String imm = Integer.toBinaryString(Integer.parseInt(registradores[2]));
-            return opcode + to5Bits(rs) + to5Bits(rt) + to16Bits(imm);
+            return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(imm);
 
         } else if (instrucaoAtual.equals("lw")) {
             return "Tem que implementar";
@@ -97,21 +97,22 @@ public class LeitorDeArquivo {
             String opcode = "000100";
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
-            String offset = getOffset(registradores[2]);
-            return opcode + to5Bits(rs) + to5Bits(rt) + to16Bits(offset);
+            String offset = getOffset(instrucao, registradores[2]);
+            System.out.println(offset);
+            return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(offset);
 
         } else if (instrucaoAtual.equals("j")) {
             String opcode = "000010";
             String target = getTarget(registradores[0]);
-            return opcode + to26Bits(target);
+            return opcode + converte.to26Bits(target);
 
         } else if (instrucaoAtual.equals("and")) {
-        	String opcode = "000000";
+            String opcode = "000000";
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[2]));
-            return opcode + to5Bits(rs) + to5Bits(rt) + to5Bits(rd) + "00000" + "100100";
-            
+            return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to5Bits(rd) + "00000" + "100100";
+
         } else if (instrucaoAtual.equals("sll")) {
             return "Tem que implementar";
 
@@ -119,55 +120,8 @@ public class LeitorDeArquivo {
             return "Tem que implementar";
 
         } else {
+            System.out.println(instrucaoAtual);
             throw new Exception("Instrução Inválida!");
-        }
-    }
-
-    //Converte um binário para 5 bits
-    public String to5Bits(String bin) throws Exception {
-        if (bin.length() < 5) {
-            int zerosFaltantes = 5 - bin.length();
-            String resultado = "";
-            for (int i = 0; i < zerosFaltantes; i++) {
-                resultado += "0";
-            }
-            return resultado + bin;
-        } else if (bin.length() == 5) {
-            return bin;
-        } else {
-            throw new Exception("Registrador maior que 31????");
-        }
-    }
-
-    //Converte um binario para 16 bits
-    public String to16Bits(String bin) throws Exception {
-        if (bin.length() < 16) {
-            int zerosFaltantes = 16 - bin.length();
-            String resultado = "";
-            for (int i = 0; i < zerosFaltantes; i++) {
-                resultado += "0";
-            }
-            return resultado + bin;
-        } else if (bin.length() == 16) {
-            return bin;
-        } else {
-            throw new Exception("Overflow");
-        }
-    }
-
-    //Converte um binario para 16 bits
-    public String to26Bits(String bin) throws Exception {
-        if (bin.length() < 26) {
-            int zerosFaltantes = 26 - bin.length();
-            String resultado = "";
-            for (int i = 0; i < zerosFaltantes; i++) {
-                resultado += "0";
-            }
-            return resultado + bin;
-        } else if (bin.length() == 26) {
-            return bin;
-        } else {
-            throw new Exception("Overflow");
         }
     }
 
@@ -183,12 +137,12 @@ public class LeitorDeArquivo {
                     if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
                         continue; //Ignora linha em branco, comentario e o globl main
                     }
-                    if(linhaAtual.equals(label + ":")){
+                    if (linhaAtual.equals(label + ":")) {
                         return Integer.toBinaryString(contador);
                     }
                     linhaAtual = in2.nextLine();
                     String[] aux = linhaAtual.split(" ");
-                    if(aux.length > 1){
+                    if (aux.length > 1) {
                         contador++;
                     }
                 }
@@ -198,7 +152,42 @@ public class LeitorDeArquivo {
     }
 
     //Retorna o numero de linhas da label para a instrucao beq
-    public String getOffset(String label) {
-        return "Tem que implementar";
+    public String getOffset(String instrucao, String label) throws Exception {
+        return Integer.toBinaryString(getNumeroDaLinha(label + ":") - getNumeroDaLinha(instrucao));
+    }
+
+    public int getNumeroDaLinha(String linha) throws Exception {
+        int linhaNum = 1;
+        Scanner in = new Scanner(new File(LeitorDeArquivo.class.getResource(caminho).toURI()));
+        String linhaAtual;
+        while (in.hasNextLine()) {
+            linhaAtual = in.nextLine();
+            if (linhaAtual.equals(".text")) {
+                while (!linhaAtual.equals(".data")) {
+
+                    linhaAtual = in.nextLine();
+
+                    if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
+                        continue; //Ignora linha em branco, comentario e o globl main
+                    }
+                    if (linhaAtual.equals(linha)) {
+                        return linhaNum;
+                    }
+
+
+                    String[] aux = linhaAtual.split(" ");
+                    if (aux.length > 1) { //label nao conta como + uma linha
+                        //System.out.println(linhaAtual);
+                        if (linhaAtual.substring(0, 5).equals("addiu") || linhaAtual.substring(0, 3).equals("ori"))
+                            linhaNum += 4;
+                        else {
+                            linhaNum++;
+                        }
+                    }
+                }
+                throw new Exception("Label que o beq leva se for verdade não existe");
+            }
+        }
+        throw new Exception("Erro!");
     }
 }
