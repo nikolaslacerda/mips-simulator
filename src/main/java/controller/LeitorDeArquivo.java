@@ -126,29 +126,20 @@ public class LeitorDeArquivo {
     }
 
     //Retorna o numero de linhas da label para a instrucao j
-    public String getTarget(String label) throws FileNotFoundException {
-        int contador = 0;
-        Scanner in2 = new Scanner(new File(caminho));
-        String linhaAtual;
-        while (in2.hasNextLine()) {
-            linhaAtual = in2.nextLine();
-            if (linhaAtual.equals(".text")) {
-                while (!linhaAtual.equals(".data")) {
-                    if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
-                        continue; //Ignora linha em branco, comentario e o globl main
-                    }
-                    if (linhaAtual.equals(label + ":")) {
-                        return Integer.toBinaryString(contador);
-                    }
-                    linhaAtual = in2.nextLine();
-                    String[] aux = linhaAtual.split(" ");
-                    if (aux.length > 1) {
-                        contador++;
-                    }
-                }
-            }
-        }
-        return Integer.toBinaryString(contador);
+    public String getTarget(String label) throws Exception {
+        ConversorDeBits converte = new ConversorDeBits();
+
+        int inicioDaMemoria = 4194304;
+        int labelNum = getNumeroDaLinha(label + ":");
+        //System.out.println(label);
+        //System.out.println(labelNum);
+        int enderecoDeSalto = inicioDaMemoria + labelNum;
+        //System.out.println(enderecoDeSalto);
+        String enderecoEmHexa = "00" + Integer.toHexString(enderecoDeSalto);
+        //System.out.println(enderecoEmHexa);
+        String enderecoEmBin = converte.hexaToBin(enderecoEmHexa);
+        //System.out.println(enderecoEmBin);
+        return enderecoEmBin.substring(4, enderecoEmBin.length() - 2); //Retira 4 bits mais significativos e 2 bits menos significativos
     }
 
     //Retorna o numero de linhas da label para a instrucao beq
@@ -174,15 +165,11 @@ public class LeitorDeArquivo {
                         return linhaNum;
                     }
 
-
                     String[] aux = linhaAtual.split(" ");
                     if (aux.length > 1) { //label nao conta como + uma linha
                         //System.out.println(linhaAtual);
-                        if (linhaAtual.substring(0, 5).equals("addiu") || linhaAtual.substring(0, 3).equals("ori"))
-                            linhaNum += 4;
-                        else {
-                            linhaNum++;
-                        }
+                        linhaNum++;
+
                     }
                 }
                 throw new Exception("Label que o beq leva se for verdade não existe");

@@ -1,0 +1,52 @@
+.text
+.globl main
+main:
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addu $s1,$zero,$s4
+addu $s1,$zero,$s4
+addu $s1,$zero,$s4
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addu $s1,$zero,$s4
+addu $s1,$zero,$s4
+addu $s1,$zero,$s4
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addu $s1,$zero,$s4
+addu $s1,$zero,$s4
+addu $s1,$zero,$s4
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+addiu $s1,$zero,5
+
+loop:
+addiu $sp,$sp,4
+addu $s2,$zero,$zero
+addiu $s3,$s3,1
+addiu $s3,$s3,1
+j loop
+
+.data
+valor:.word32
