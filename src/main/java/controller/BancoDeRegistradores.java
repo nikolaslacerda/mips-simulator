@@ -103,7 +103,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradores.containsKey(registrador)) {
             return listaDeRegistradores.get(registrador);
         } else {
-            throw new Exception("Registrador Inválido!");
+            throw new Exception("Registrador Invalido!");
         }
     }
 
@@ -111,7 +111,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradoresNumeros.containsKey(registrador)) {
             return listaDeRegistradoresNumeros.get(registrador);
         } else {
-            throw new Exception("Registrador Inválido!");
+            throw new Exception("Registrador Invalido!");
         }
     }
 

@@ -5,6 +5,7 @@ public class Executa {
 	private MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
 	private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
 	private ULA ula = ULA.getInstance();
+	private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
 	private static Executa instance = Executa.getInstance();
 	
 	 public static Executa getInstance() {
@@ -18,37 +19,45 @@ public class Executa {
 	
 	public void ExecutaPrograma() {
 		for(int i=0;i<memoriaDeInstrucoes.getPosAtual();i++){
+			
 			String instrucao = memoriaDeInstrucoes.getInstrucao(i);
-			if(instrucao.substring(0,6).equals("000000") && instrucao.substring(26,32).equals("100001")){//addu
+			String opcode = instrucao.substring(0,6); 
+			String func = instrucao.substring(26,32);
+			
+			blocoDeControle.iniciaBlocoDeControle(opcode);
+			
+			if(opcode.equals("000000") && func.equals("100001")){//addu
 				String rs = instrucao.substring(6,11);
 				String rt = instrucao.substring(11,16);
 				String rd = instrucao.substring(16,21);
-				int soma = ula.Soma2Binarios(rs,rt);
-				bancoDeRegistradores.setRegBin(rd,soma);
+				ula.Soma2Binarios(rs,rt,rd);
+			}
+			else if(opcode.equals("000000") && func.equals("100100")){//and
+				String rs = instrucao.substring(6,11);
+				String rt = instrucao.substring(11,16);
+				String rd = instrucao.substring(16,21);
+				ula.And2Binarios(rs,rt,rd);
 			
 			}
-			else if(instrucao.substring(0,6).equals("000000") && instrucao.substring(26,32).equals("100100")){//and
-			
-			}
-			else if(instrucao.substring(0,12).equals("00000000000") && instrucao.substring(26,32).equals("000010")){//srl
+			else if(opcode.equals("000000") && func.equals("000010")){//srl
 				
 			}
-			else if(instrucao.substring(0,12).equals("00000000000") && instrucao.substring(26,32).equals("000000")){//sll
+			else if(opcode.equals("000000") && func.equals("000000")){//sll
 				
 			}
-			else if(instrucao.substring(0,6).equals("001001")) {//addiu
+			else if(opcode.equals("001001")) {//addiu
 	
 			}
-			else if(instrucao.substring(0,6).equals("000100")) {//beq
+			else if(opcode.equals("000100")) {//beq
 	
 			}
-			else if(instrucao.substring(0,6).equals("000010")) {//j
+			else if(opcode.equals("000010")) {//j
 				
 			}
-			else if(instrucao.substring(0,6).equals("100011")) {//lw
+			else if(opcode.equals("100011")) {//lw
 				//usa lui ou ori
 			}
-			else if(instrucao.substring(0,6).equals("101011")) {//sw
+			else if(opcode.equals("101011")) {//sw
 				//usa lui ou ori
 			}
 			else {System.out.println("Erro: Classe Executa.java");}

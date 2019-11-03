@@ -106,8 +106,12 @@ public class LeitorDeArquivo {
             return opcode + to26Bits(target);
 
         } else if (instrucaoAtual.equals("and")) {
-            return "Tem que implementar";
-
+        	String opcode = "000000";
+            String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
+            String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
+            String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[2]));
+            return opcode + to5Bits(rs) + to5Bits(rt) + to5Bits(rd) + "00000" + "100100";
+            
         } else if (instrucaoAtual.equals("sll")) {
             return "Tem que implementar";
 
