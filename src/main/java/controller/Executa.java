@@ -25,7 +25,7 @@ public class Executa {
 			String func = instrucao.substring(26,32);
 			
 			if(opcode.equals("000000") && func.equals("100001")){//addu
-				blocoDeControle.iniciaBlocoDeControle(opcode);
+				blocoDeControle.iniciaBlocoDeControle(opcode);    
 				String rs = instrucao.substring(6,11);
 				String rt = instrucao.substring(11,16);
 				String rd = instrucao.substring(16,21);
@@ -37,7 +37,6 @@ public class Executa {
 				String rt = instrucao.substring(11,16);
 				String rd = instrucao.substring(16,21);
 				ula.And2Binarios(rs,rt,rd);
-			
 			}
 			else if(opcode.equals("000000") && func.equals("000010")){//srl
 				
