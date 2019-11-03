@@ -36,7 +36,7 @@ public class LeitorDeArquivo {
                         continue; //Ignora label
                     }
                     if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
-                        continue; //Ignora linha em branco, comentário e o globl main
+                        continue; //Ignora linha em branco, comentario e o globl main
                     }
 
                     String instrucaoBin = codificaInstrucao(linhaAtual);
@@ -98,7 +98,7 @@ public class LeitorDeArquivo {
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String offset = getOffset(instrucao, registradores[2]);
-            System.out.println(offset);
+            //System.out.println(offset);
             return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(offset);
 
         } else if (instrucaoAtual.equals("j")) {
@@ -114,14 +114,22 @@ public class LeitorDeArquivo {
             return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to5Bits(rd) + "00000" + "100100";
 
         } else if (instrucaoAtual.equals("sll")) {
-            return "Tem que implementar";
+        	String opcode = "000000";
+            String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
+            String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
+            String shamt = Integer.toBinaryString(Integer.parseInt(registradores[2]));
+            return opcode + "00000" + converte.to5Bits(rt) + converte.to5Bits(rd) + converte.to5Bits(shamt) + "000000";
 
         } else if (instrucaoAtual.equals("srl")) {
-            return "Tem que implementar";
+        	String opcode = "000000";
+            String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
+            String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
+            String shamt = Integer.toBinaryString(Integer.parseInt(registradores[2]));
+            return opcode + "00000" + converte.to5Bits(rt) + converte.to5Bits(rd) + converte.to5Bits(shamt) + "000010";
 
         } else {
             System.out.println(instrucaoAtual);
-            throw new Exception("Instrução Inválida!");
+            throw new Exception("Instrucao Invalida!");
         }
     }
 
@@ -185,7 +193,7 @@ public class LeitorDeArquivo {
                         }
                     }
                 }
-                throw new Exception("Label que o beq leva se for verdade não existe");
+                throw new Exception("Label que o beq leva se for verdade nao existe");
             }
         }
         throw new Exception("Erro!");

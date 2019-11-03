@@ -3,5 +3,7 @@
 main:
 addu $t0,$t1,$t2
 and $t3,$t1,$t2
+srl $t4,$t1,2
+sll $t5,$t1,2
 .data
 a:   .word   11

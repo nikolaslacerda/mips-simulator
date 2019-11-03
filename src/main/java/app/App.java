@@ -15,15 +15,16 @@ public class App {
 		BlocoDeControle controle = BlocoDeControle.getInstance();
 		MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
 		MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
-		LeitorDeArquivo leitorDeArquivo = new LeitorDeArquivo("/mipsTestBeqNeg.mips");
+		LeitorDeArquivo leitorDeArquivo = new LeitorDeArquivo("/mipsTest2.mips");
 		Executa executa= Executa.getInstance();
 
 		try {
-           leitorDeArquivo.lePrograma();
+            leitorDeArquivo.lePrograma();
 			memoriaDeInstrucoes.imprime();
-			//executa.ExecutaPrograma();
+			//System.out.println(memoriaDeInstrucoes.getPosAtual());
+			executa.ExecutaPrograma();
 			//memoriaDeDados.imprime();
-			//registradores.imprime();
+			registradores.imprime();
 
 		} catch (Exception e) {
 			e.printStackTrace();
