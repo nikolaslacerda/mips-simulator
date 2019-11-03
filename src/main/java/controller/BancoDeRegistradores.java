@@ -2,7 +2,6 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class BancoDeRegistradores {
 
@@ -23,8 +22,8 @@ public class BancoDeRegistradores {
         listaDeRegistradores.put("$a2", 0);
         listaDeRegistradores.put("$a3", 0);
         listaDeRegistradores.put("$t0", 0);
-        listaDeRegistradores.put("$t1", 0);
-        listaDeRegistradores.put("$t2", 0);
+        listaDeRegistradores.put("$t1", 2);
+        listaDeRegistradores.put("$t2", 3);
         listaDeRegistradores.put("$t3", 0);
         listaDeRegistradores.put("$t4", 0);
         listaDeRegistradores.put("$t5", 0);
@@ -124,14 +123,25 @@ public class BancoDeRegistradores {
     }
     
     public void setRegBin(String reg,int valor) { //recebe reg em binario
+    	int numReg = Integer.parseInt(reg, 2);
     	String key="";
     	for(Map.Entry<String,Integer> entry: listaDeRegistradoresNumeros.entrySet()) { 
-            if(entry.getValue()==valor) {
+            if(entry.getValue()==numReg) {
             	key = entry.getKey();
             	break;
             }
         }
     	listaDeRegistradores.put(key, valor);	
+    }
+    public Integer getValorRegBin(String reg) {
+    	int numReg = Integer.parseInt(reg, 2);
+    	for(Map.Entry<String,Integer> entry: listaDeRegistradoresNumeros.entrySet()) { 
+            if(entry.getValue()==numReg) {
+            	String key=entry.getKey();
+            	return listaDeRegistradores.get(key);
+            }
+        }
+    	return 0;
     }
 
 }

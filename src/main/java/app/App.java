@@ -2,6 +2,7 @@ package app;
 
 import controller.BancoDeRegistradores;
 import controller.BlocoDeControle;
+import controller.Executa;
 import controller.LeitorDeArquivo;
 import controller.MemoriaDeDados;
 import controller.MemoriaDeInstrucoes;
@@ -10,24 +11,19 @@ import controller.MemoriaDeInstrucoes;
 public class App {
 
 	public static void main(String[] args) {
-        BancoDeRegistradores listaDeRegistradores = BancoDeRegistradores.getInstance();
+        BancoDeRegistradores registradores = BancoDeRegistradores.getInstance();
 		BlocoDeControle controle = BlocoDeControle.getInstance();
-
-        //Iniciando a memoria de instrucoes
 		MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
-
-		//Iniciando a memoria de dados
 		MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
-
-		//Iniciando o leitor de arquivo
-		LeitorDeArquivo l = new LeitorDeArquivo();
+		LeitorDeArquivo leitorDeArquivo = new LeitorDeArquivo("/mipsTest2.mips");
+		Executa executa= Executa.getInstance();
 
 		try {
-
-			l.lePrograma();
-			//memoriaDeInstrucoes.imprime();
-			memoriaDeDados.imprime();
-			//listaDeRegistradores.imprime();
+			leitorDeArquivo.lePrograma();
+			memoriaDeInstrucoes.imprime();
+			executa.ExecutaPrograma();
+			//memoriaDeDados.imprime();
+			registradores.imprime();
 
 		} catch (Exception e) {
 			e.printStackTrace();

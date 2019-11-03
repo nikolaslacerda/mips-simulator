@@ -1,0 +1,6 @@
+.text
+.globl main
+main:
+addu $t0,$t1,$t2
+.data
+a:   .word   11

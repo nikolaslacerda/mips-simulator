@@ -16,13 +16,13 @@ public class LeitorDeArquivo {
     private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
 
     //Construtor
-    public LeitorDeArquivo() {
-        caminho = "/mipsTest.mips";
+    public LeitorDeArquivo(String c) {
+        caminho = c;
     }
 
     //Executa a leitura do arquivo armazenando os dados e as instrucoes na memoria
     public void lePrograma() throws Exception {
-        Scanner in = new Scanner(new File(LeitorDeArquivo.class.getResource("/mipsTest.mips").toURI()));
+        Scanner in = new Scanner(new File(LeitorDeArquivo.class.getResource(caminho).toURI()));
         String linhaAtual;
         while (in.hasNextLine()) {
             linhaAtual = in.nextLine();
@@ -78,7 +78,7 @@ public class LeitorDeArquivo {
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[2]));
-            return opcode + to5Bits(rs) + to5Bits(rt) + to5Bits(rd) + "00000" + "010101";
+            return opcode + to5Bits(rs) + to5Bits(rt) + to5Bits(rd) + "00000" + "100001";
 
         } else if (instrucaoAtual.equals("addiu")) {
             String opcode = "001001";
