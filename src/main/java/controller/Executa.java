@@ -24,15 +24,15 @@ public class Executa {
 			String opcode = instrucao.substring(0,6); 
 			String func = instrucao.substring(26,32);
 			
-			blocoDeControle.iniciaBlocoDeControle(opcode);
-			
 			if(opcode.equals("000000") && func.equals("100001")){//addu
+				blocoDeControle.iniciaBlocoDeControle(opcode);
 				String rs = instrucao.substring(6,11);
 				String rt = instrucao.substring(11,16);
 				String rd = instrucao.substring(16,21);
 				ula.Soma2Binarios(rs,rt,rd);
 			}
 			else if(opcode.equals("000000") && func.equals("100100")){//and
+				blocoDeControle.iniciaBlocoDeControle(opcode);
 				String rs = instrucao.substring(6,11);
 				String rt = instrucao.substring(11,16);
 				String rd = instrucao.substring(16,21);
