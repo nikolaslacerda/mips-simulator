@@ -15,7 +15,7 @@ public class Executa {
 	        return instance;
 	}
 	
-	public Executa() {	}
+	public Executa() {	} 
 	
 	public void ExecutaPrograma() {
 		for(int i=0;i<memoriaDeInstrucoes.getPosAtual();i++){
@@ -39,10 +39,18 @@ public class Executa {
 				ula.And2Binarios(rs,rt,rd);
 			}
 			else if(opcode.equals("000000") && func.equals("000010")){//srl
-				
+				blocoDeControle.iniciaBlocoDeControle(opcode);
+				String rt = instrucao.substring(11,16);
+				String rd = instrucao.substring(16,21);
+				String shamt = instrucao.substring(21,26);
+				ula.ShiftDireita(rt,shamt,rd);				
 			}
 			else if(opcode.equals("000000") && func.equals("000000")){//sll
-				
+				blocoDeControle.iniciaBlocoDeControle(opcode);
+				String rt = instrucao.substring(11,16);
+				String rd = instrucao.substring(16,21);
+				String shamt = instrucao.substring(21,26);
+				ula.ShiftEsquerda(rt,shamt,rd);					
 			}
 			else if(opcode.equals("001001")) {//addiu
 	
@@ -54,11 +62,12 @@ public class Executa {
 				
 			}
 			else if(opcode.equals("100011")) {//lw
-				//usa lui ou ori
+				//usa lui
 			}
 			else if(opcode.equals("101011")) {//sw
-				//usa lui ou ori
+				
 			}
+			//falta ori
 			else {System.out.println("Erro: Classe Executa.java");}
 		}
 	}

@@ -11,7 +11,7 @@ public class ULA {
         return uniqueInstance;
     }
 	
-	public ULA(){}
+	public ULA(){} //PRECISA FAZER A VERIFICACOES PRA VER SE O RESULTADO DA ULA VAI DAR MAIS QUE 32 BITS
 	
 	public void Soma4Pc() throws Exception { 
 		int x=bancoDeRegistradores.getValue("pc")+4;
@@ -24,13 +24,25 @@ public class ULA {
 		bancoDeRegistradores.setRegBin(rd,soma); //salva no banco de registradores em decimal
 	}
 	
-	public void CalculaEndereÃ§oDeSalto() {}
+	public void CalculaEndereçoDeSalto() {}
 	
 	public void And2Binarios(String b1,String b2,String rd) { //salva no banco de registradores em decimal
 		int x = bancoDeRegistradores.getValorRegBin(b1);
 		int y = bancoDeRegistradores.getValorRegBin(b2);
 		int and = x & y;
 		bancoDeRegistradores.setRegBin(rd,and);
+	}
+	
+	public void ShiftDireita(String b,String shamt,String rd) {
+		int x = bancoDeRegistradores.getValorRegBin(b);
+		int srl = x >> Integer.parseInt(shamt,2);
+		bancoDeRegistradores.setRegBin(rd,srl);
+	}
+	
+	public void ShiftEsquerda(String b,String shamt,String rd) {
+		int x = bancoDeRegistradores.getValorRegBin(b);
+		int sll = x << Integer.parseInt(shamt,2);
+		bancoDeRegistradores.setRegBin(rd,sll);
 	}
 	
 }
