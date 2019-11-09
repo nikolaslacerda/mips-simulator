@@ -8,12 +8,16 @@ public class MemoriaDeDados {
     //Array da memoria de dados
     private String[] memoria;
 
+    //Proxima posicao livre
+    private int posicaoAtual;
+
     //Tamanho da memoria
     private static int SIZE = 100000;
 
     //Construtor
     private MemoriaDeDados() {
-        memoria = new String[SIZE];
+        this.posicaoAtual = 0;
+        this.memoria = new String[SIZE];
     }
 
     //Singleton
@@ -32,13 +36,22 @@ public class MemoriaDeDados {
         return this.memoria[pos];
     }
 
+    //Adiciona um dado na memoria
+    public void writeDado(String dado){
+        this.memoria[posicaoAtual] = dado;
+        posicaoAtual++;
+        while(memoria[posicaoAtual] != null){ //Busca a proxima posicao de memoria livre
+            posicaoAtual++;
+        }
+    }
+
     //Adiciona um dado na memoria dada uma posicao
     public void writeDado(String dado, int pos){
         pos = (pos / 4);
         if(pos > SIZE){
             throw new ArrayIndexOutOfBoundsException("Overflow de memoria");
         }
-        this.memoria[pos] = dado;
+        this.memoria[pos] = dado; //Se tiver um dado sera sobreescrito
     }
 
     //Imprime

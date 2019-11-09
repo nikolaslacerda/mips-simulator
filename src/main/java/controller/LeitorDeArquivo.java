@@ -51,7 +51,7 @@ public class LeitorDeArquivo {
                     linhaAtual = in.nextLine();
                     String label = linhaAtual.split(".word")[0];
                     String valor = linhaAtual.split(".word")[1];
-                    memoriaDeDados.addDado(valor);
+                    memoriaDeDados.writeDado(valor);
                 }
             }
             break;
