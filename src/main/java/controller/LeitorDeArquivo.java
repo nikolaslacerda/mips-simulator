@@ -26,37 +26,50 @@ public class LeitorDeArquivo {
         String linhaAtual;
         while (in.hasNextLine()) {
             linhaAtual = in.nextLine();
-
-            if (linhaAtual.equals(".text")) {
-
-                while (!linhaAtual.equals(".data")) {
-                    linhaAtual = in.nextLine();
-
-                    if (linhaAtual.split(" ").length == 1) {
-                        continue; //Ignora label
-                    }
-                    if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
-                        continue; //Ignora linha em branco, comentario e o globl main
-                    }
-
-                    String instrucaoBin = codificaInstrucao(linhaAtual);
-                    memoriaDeIntrucoes.addInstruction(instrucaoBin);
-                }
+            //Busca a area de dados
+            while (!linhaAtual.equals(".data")) {
+                linhaAtual = in.nextLine();
             }
+            //Adiciona os dados na memoria
             if (linhaAtual.equals(".data")) {
                 while (in.hasNextLine()) {
                     if (linhaAtual.length() == 0 || linhaAtual.charAt(0) == '#') {
                         continue; //Ignora linha em branco e comentário
                     }
                     linhaAtual = in.nextLine();
+                    System.out.println(linhaAtual);
                     String label = linhaAtual.split(".word")[0];
                     String valor = linhaAtual.split(".word")[1];
                     memoriaDeDados.writeDado(valor);
                 }
             }
+        }
+        in.close();
+        in = new Scanner(new File(LeitorDeArquivo.class.getResource(caminho).toURI()));
+        String linhaAtual2;
+        //Le instrucoes
+        while (in.hasNextLine()) {
+            linhaAtual = in.nextLine();
+            if (linhaAtual.equals(".text")) {
+                linhaAtual = in.nextLine();
+                while (!linhaAtual.equals(".data")) {
+                    linhaAtual = in.nextLine();
+                    if (linhaAtual.split(" ").length == 1) {
+                        continue; //Ignora label
+                    }
+                    if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
+                        continue; //Ignora linha em branco, comentario e o globl main
+                    }
+                    System.out.println(linhaAtual);
+                    String instrucaoBin = codificaInstrucao(linhaAtual);
+                    memoriaDeIntrucoes.addInstruction(instrucaoBin);
+                }
+            }
             break;
         }
+        in.close();
     }
+
 
     //Converte uma instrucao para sua representacao binaria
     public String codificaInstrucao(String instrucao) throws Exception {
@@ -114,14 +127,14 @@ public class LeitorDeArquivo {
             return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to5Bits(rd) + "00000" + "100100";
 
         } else if (instrucaoAtual.equals("sll")) {
-        	String opcode = "000000";
+            String opcode = "000000";
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String shamt = Integer.toBinaryString(Integer.parseInt(registradores[2]));
             return opcode + "00000" + converte.to5Bits(rt) + converte.to5Bits(rd) + converte.to5Bits(shamt) + "000000";
 
         } else if (instrucaoAtual.equals("srl")) {
-        	String opcode = "000000";
+            String opcode = "000000";
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String rd = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String shamt = Integer.toBinaryString(Integer.parseInt(registradores[2]));

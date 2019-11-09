@@ -21,11 +21,11 @@ public class App {
 
 		try {
             leitorDeArquivo.lePrograma();
-			memoriaDeInstrucoes.imprime();
+			//memoriaDeInstrucoes.imprime();
 			//System.out.println(memoriaDeInstrucoes.getPosAtual());
-			executa.ExecutaPrograma();
+			//executa.ExecutaPrograma();
 			//memoriaDeDados.imprime();
-			registradores.imprime();
+			//registradores.imprime();
 
 		} catch (Exception e) {
 			e.printStackTrace();
