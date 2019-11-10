@@ -88,4 +88,9 @@ public class ConversorDeBits {
         return bin;
     }
 
+    public String binToHex(String bin) {
+        int decimal = Integer.parseInt(bin,2);
+        return "0x" + Integer.toString(decimal,16);
+    }
+
 }

@@ -59,8 +59,6 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 
-		launch(args);
-
 		BancoDeRegistradores registradores = BancoDeRegistradores.getInstance();
 		BlocoDeControle controle = BlocoDeControle.getInstance();
 		MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
@@ -80,6 +78,8 @@ public class App extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+        launch(args);
 
 	}
 }

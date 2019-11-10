@@ -5,49 +5,49 @@ import java.util.Map;
 
 public class BancoDeRegistradores {
 
-    private Map<String, Integer> listaDeRegistradores;
-    private Map<String, Integer> listaDeRegistradoresNumeros;
+    private HashMap<String, String> listaDeRegistradores;
+    private HashMap<String, Integer> listaDeRegistradoresNumeros;
     private static BancoDeRegistradores instance;
 
-    public BancoDeRegistradores() {
-        this.listaDeRegistradores = new HashMap<String, Integer>();
+    private BancoDeRegistradores() {
+        this.listaDeRegistradores = new HashMap<String, String>();
         this.listaDeRegistradoresNumeros = new HashMap<String, Integer>();
 
-        listaDeRegistradores.put("$zero", 0);
-        listaDeRegistradores.put("$at", 0);
-        listaDeRegistradores.put("$v0", 0);
-        listaDeRegistradores.put("$v1", 0);
-        listaDeRegistradores.put("$a0", 0);
-        listaDeRegistradores.put("$a1", 0);
-        listaDeRegistradores.put("$a2", 0);
-        listaDeRegistradores.put("$a3", 0);
-        listaDeRegistradores.put("$t0", 0);
-        listaDeRegistradores.put("$t1", 2);
-        listaDeRegistradores.put("$t2", 3);
-        listaDeRegistradores.put("$t3", 0);
-        listaDeRegistradores.put("$t4", 0);
-        listaDeRegistradores.put("$t5", 0);
-        listaDeRegistradores.put("$t6", 0);
-        listaDeRegistradores.put("$t7", 0);
-        listaDeRegistradores.put("$s0", 0);
-        listaDeRegistradores.put("$s1", 0);
-        listaDeRegistradores.put("$s2", 0);
-        listaDeRegistradores.put("$s3", 0);
-        listaDeRegistradores.put("$s4", 0);
-        listaDeRegistradores.put("$s5", 0);
-        listaDeRegistradores.put("$s6", 0);
-        listaDeRegistradores.put("$s7", 0);
-        listaDeRegistradores.put("$t8", 0);
-        listaDeRegistradores.put("$t9", 0);
-        listaDeRegistradores.put("$k0", 0);
-        listaDeRegistradores.put("$k1", 0);
-        listaDeRegistradores.put("$gp", 0);
-        listaDeRegistradores.put("$sp", 0);
-        listaDeRegistradores.put("$fp", 0);
-        listaDeRegistradores.put("$ra", 0);
-        listaDeRegistradores.put("pc", 0);
-        listaDeRegistradores.put("hi", 0);
-        listaDeRegistradores.put("lo", 0);
+        listaDeRegistradores.put("$zero", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$at", "00000000000000000001111111111111");
+        listaDeRegistradores.put("$v0", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$v1", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$a0", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$a1", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$a2", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$a3", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t0", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t1", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t2", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t3", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t4", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t5", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t6", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t7", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s0", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s1", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s2", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s3", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s4", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s5", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s6", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s7", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t8", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$t9", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$k0", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$k1", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$gp", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$sp", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$fp", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$ra", "00000000000000000000000000000000");
+        listaDeRegistradores.put("pc", "00000000000000000000000000000000");
+        listaDeRegistradores.put("hi", "00000000000000000000000000000000");
+        listaDeRegistradores.put("lo", "00000000000000000000000000000000");
 
         listaDeRegistradoresNumeros.put("$zero", 0);
         listaDeRegistradoresNumeros.put("$at", 1);
@@ -91,9 +91,17 @@ public class BancoDeRegistradores {
         return instance;
     }
 
+    public HashMap<String, String> getListaDeRegistradores() {
+        return listaDeRegistradores;
+    }
+
+    public HashMap<String, Integer> getListaDeRegistradoresNumeros() {
+        return listaDeRegistradoresNumeros;
+    }
+
     public void setValue(String registrador, int valor) throws Exception {
         if (listaDeRegistradores.containsKey(registrador)) {
-            listaDeRegistradores.put(registrador, valor);
+            listaDeRegistradores.put(registrador, Integer.toBinaryString(valor));
         } else {
             throw new Exception("Registrador Inválido!");
         }
@@ -101,7 +109,7 @@ public class BancoDeRegistradores {
 
     public int getValue(String registrador) throws Exception {
         if (listaDeRegistradores.containsKey(registrador)) {
-            return listaDeRegistradores.get(registrador);
+            return Integer.parseInt(listaDeRegistradores.get(registrador), 2);
         } else {
             throw new Exception("Registrador Invalido!");
         }
@@ -117,7 +125,7 @@ public class BancoDeRegistradores {
 
     public void imprime() {
         System.out.println("### Registradores ###");
-        for (Map.Entry<String, Integer> entry : listaDeRegistradores.entrySet()) {
+        for (Map.Entry<String, String> entry : listaDeRegistradores.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
     }
@@ -131,14 +139,14 @@ public class BancoDeRegistradores {
             	break;
             }
         }
-    	listaDeRegistradores.put(key, valor);	
+    	listaDeRegistradores.put(key, Integer.toBinaryString(valor));
     }
     public Integer getValorRegBin(String reg) {
     	int numReg = Integer.parseInt(reg, 2);
     	for(Map.Entry<String,Integer> entry: listaDeRegistradoresNumeros.entrySet()) { 
             if(entry.getValue()==numReg) {
             	String key=entry.getKey();
-            	return listaDeRegistradores.get(key);
+            	return Integer.parseInt(listaDeRegistradores.get(key), 2);
             }
         }
     	return 0;

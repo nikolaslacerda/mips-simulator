@@ -62,7 +62,7 @@ public class LeitorDeArquivo {
                     }
                     System.out.println(linhaAtual);
                     String instrucaoBin = codificaInstrucao(linhaAtual);
-                    memoriaDeIntrucoes.addInstruction(instrucaoBin);
+                    memoriaDeIntrucoes.addInstruction(linhaAtual, instrucaoBin);
                 }
             }
             break;
