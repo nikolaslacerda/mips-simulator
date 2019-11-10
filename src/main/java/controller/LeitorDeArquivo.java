@@ -101,10 +101,18 @@ public class LeitorDeArquivo {
             return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(imm);
 
         } else if (instrucaoAtual.equals("lw")) {
-            return "Tem que implementar";
+            String opcode = "100011";
+            String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1].split("\\(")[1].replace(")", "")));
+            String offset = registradores[1].split("\\(")[0];
+            String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
+            return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(offset);
 
         } else if (instrucaoAtual.equals("sw")) {
-            return "Tem que implementar";
+            String opcode = "101011";
+            String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1].split("\\(")[1].replace(")", "")));
+            String offset = registradores[1].split("\\(")[0];
+            String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
+            return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(offset);
 
         } else if (instrucaoAtual.equals("beq")) {
             String opcode = "000100";

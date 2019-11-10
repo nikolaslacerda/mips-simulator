@@ -21,7 +21,7 @@ public class App {
 
 		try {
             leitorDeArquivo.lePrograma();
-			//memoriaDeInstrucoes.imprime();
+			memoriaDeInstrucoes.imprime();
 			//System.out.println(memoriaDeInstrucoes.getPosAtual());
 			//executa.ExecutaPrograma();
 			//memoriaDeDados.imprime();
