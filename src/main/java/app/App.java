@@ -15,7 +15,7 @@ public class App {
 		BlocoDeControle controle = BlocoDeControle.getInstance();
 		MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
 		MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
-		LeitorDeArquivo leitorDeArquivo = new LeitorDeArquivo("/mipsTest2.mips");
+		LeitorDeArquivo leitorDeArquivo = new LeitorDeArquivo("/files/mipsTest2.mips");
 
 		Executa executa= Executa.getInstance();
 

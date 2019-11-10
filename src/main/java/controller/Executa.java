@@ -18,6 +18,12 @@ public class Executa {
 	public Executa() {	} 
 	
 	public void ExecutaPrograma() {
+
+	 	/* To Do */
+		// Addu
+		// Addiu
+
+
 		for(int i=0;i<memoriaDeInstrucoes.getPosAtual();i++){
 			
 			String instrucao = memoriaDeInstrucoes.getInstrucao(i);
