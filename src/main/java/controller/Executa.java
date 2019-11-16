@@ -1,9 +1,7 @@
 package controller;
 
 public class Executa {
-	private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
 	private MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
-	private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
 	private ULA ula = ULA.getInstance();
 	private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
 	private static Executa instance = Executa.getInstance();
@@ -17,15 +15,11 @@ public class Executa {
 	
 	public Executa() {	} 
 	
-	public void ExecutaPrograma() {
-
+	public void ExecutaPrograma() throws Exception {
 	 	/* To Do */
 		// Addu
 		// Addiu
-
-
-		for(int i=0;i<memoriaDeInstrucoes.getPosAtual();i++){
-			
+		for(int i=0;i<memoriaDeInstrucoes.getPosAtual();i++){			
 			String instrucao = memoriaDeInstrucoes.getInstrucao(i);
 			String opcode = instrucao.substring(0,6); 
 			String func = instrucao.substring(26,32);

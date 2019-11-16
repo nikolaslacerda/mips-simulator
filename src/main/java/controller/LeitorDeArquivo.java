@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LeitorDeArquivo {
@@ -34,7 +33,7 @@ public class LeitorDeArquivo {
             if (linhaAtual.equals(".data")) {
                 while (in.hasNextLine()) {
                     if (linhaAtual.length() == 0 || linhaAtual.charAt(0) == '#') {
-                        continue; //Ignora linha em branco e comentário
+                        continue; //Ignora linha em branco e comentÃ¡rio
                     }
                     linhaAtual = in.nextLine();
                     System.out.println(linhaAtual);
@@ -70,7 +69,6 @@ public class LeitorDeArquivo {
         in.close();
     }
 
-
     //Converte uma instrucao para sua representacao binaria
     public String codificaInstrucao(String instrucao) throws Exception {
 
@@ -81,13 +79,13 @@ public class LeitorDeArquivo {
         String[] registradores = instrucao.split(" ")[1].split(",");
 
         if (instrucaoAtual.equals("lui")) { //lui rt, imm
-        	String opcode = "000000";
+        	String opcode = "001111";
 	    	String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
 	        String imm = Integer.toBinaryString(Integer.parseInt(registradores[1]));
 	        return opcode + "00000" + converte.to5Bits(rt) + converte.to16Bits(imm);
 
         } else if (instrucaoAtual.equals("ori")) { //ori rt, rs, imm
-        	String opcode = "000000";
+        	String opcode = "00‭1101‬";
 	    	String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
 	        String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
 	        String imm = Integer.toBinaryString(Integer.parseInt(registradores[2]));
@@ -164,7 +162,6 @@ public class LeitorDeArquivo {
     //Retorna o numero de linhas da label para a instrucao j
     public String getTarget(String label) throws Exception {
         ConversorDeBits converte = new ConversorDeBits();
-
         int inicioDaMemoria = 4194304;
         int labelNum = getNumeroDaLinha(label + ":");
         //System.out.println(label);
@@ -191,21 +188,17 @@ public class LeitorDeArquivo {
             linhaAtual = in.nextLine();
             if (linhaAtual.equals(".text")) {
                 while (!linhaAtual.equals(".data")) {
-
                     linhaAtual = in.nextLine();
-
                     if (linhaAtual.length() == 0 || linhaAtual.equals(".globl main") || linhaAtual.charAt(0) == '#') {
                         continue; //Ignora linha em branco, comentario e o globl main
                     }
                     if (linhaAtual.equals(linha)) {
                         return linhaNum;
                     }
-
                     String[] aux = linhaAtual.split(" ");
                     if (aux.length > 1) { //label nao conta como + uma linha
                         //System.out.println(linhaAtual);
                         linhaNum++;
-
                     }
                 }
                 throw new Exception("Label que o beq leva se for verdade nao existe");
