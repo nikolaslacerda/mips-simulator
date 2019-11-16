@@ -80,11 +80,18 @@ public class LeitorDeArquivo {
         String instrucaoAtual = instrucao.split(" ")[0];
         String[] registradores = instrucao.split(" ")[1].split(",");
 
-        if (instrucaoAtual.equals("lui")) {
-            return "Tem que implementar";
+        if (instrucaoAtual.equals("lui")) { //lui rt, imm
+        	String opcode = "000000";
+	    	String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
+	        String imm = Integer.toBinaryString(Integer.parseInt(registradores[1]));
+	        return opcode + "00000" + converte.to5Bits(rt) + converte.to16Bits(imm);
 
-        } else if (instrucaoAtual.equals("ori")) {
-            return "Tem que implementar";
+        } else if (instrucaoAtual.equals("ori")) { //ori rt, rs, imm
+        	String opcode = "000000";
+	    	String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
+	        String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
+	        String imm = Integer.toBinaryString(Integer.parseInt(registradores[2]));
+	        return opcode + converte.to5Bits(rt) + converte.to5Bits(rs) + converte.to16Bits(imm);
 
         } else if (instrucaoAtual.equals("addu")) {
             String opcode = "000000";

@@ -23,7 +23,7 @@ public class App extends Application {
 	private double y;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(final Stage stage) throws Exception {
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/views/TelaPrincipal.fxml"));
@@ -31,20 +31,17 @@ public class App extends Application {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initStyle(StageStyle.TRANSPARENT);
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
                 public void handle(MouseEvent event) {
                     x = event.getSceneX();
                     y = event.getSceneY();
                 }
             });
             root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
                 public void handle(MouseEvent event) {
                     stage.setX(event.getScreenX() - x);
                     stage.setY(event.getScreenY() - y);
                 }
             });
-
             Scene scene = new Scene(root);
             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
             Image applicationIcon = new Image(getClass().getResourceAsStream("/img/mars.png"));
@@ -53,7 +50,7 @@ public class App extends Application {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-			System.out.println("Errooo!!" + e);
+			System.out.println("Erro!" + e);
         }
     }
 
@@ -69,7 +66,7 @@ public class App extends Application {
 
 		try {
 			leitorDeArquivo.lePrograma();
-			memoriaDeInstrucoes.imprime();
+			//memoriaDeInstrucoes.imprime();
 			//System.out.println(memoriaDeInstrucoes.getPosAtual());
 			//executa.ExecutaPrograma();
 			//memoriaDeDados.imprime();

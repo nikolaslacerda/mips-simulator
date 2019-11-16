@@ -65,15 +65,15 @@
                                     <TableView fx:id="TabelaInstrucao" layoutX="18.0" layoutY="44.0" prefHeight="334.0" prefWidth="847.0">
                                       <columns>
                                         <TableColumn fx:id="TabInstColEndereco" prefWidth="182.0" text="Endereço" />
-                                        <TableColumn fx:id="TabInstColCodigo" prefWidth="320.0" text="Codigo" />
-                                          <TableColumn fx:id="TabInstColInstrucao" prefWidth="343.0" text="Instruçao" />
+                                        <TableColumn fx:id="TabInstColCodigo" prefWidth="320.0" text="Código" />
+                                          <TableColumn fx:id="TabInstColInstrucao" prefWidth="343.0" text="Instrução" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="237.0" prefWidth="876.0">
                                  <children>
-                                    <Label alignment="CENTER" layoutX="14.0" layoutY="23.0" style="&#10;" text="Memoria" textAlignment="CENTER" wrapText="false">
+                                    <Label alignment="CENTER" layoutX="14.0" layoutY="23.0" style="&#10;" text="Memória" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x711" />
                                        </font>
@@ -83,7 +83,7 @@
                                     </Label>
                                     <TableView fx:id="TabelaMemoria" layoutX="14.0" layoutY="57.0" prefHeight="200.0" prefWidth="847.0">
                                       <columns>
-                                        <TableColumn fx:id="TabMemColEndereco" prefWidth="323.0" text="Endereco" />
+                                        <TableColumn fx:id="TabMemColEndereco" prefWidth="323.0" text="Endereço" />
                                         <TableColumn fx:id="TabMemColValor" prefWidth="523.0" text="Valor" />
                                       </columns>
                                     </TableView>
@@ -108,7 +108,7 @@
                   <TableView fx:id="TabelaRegistradores" layoutX="15.0" layoutY="42.0" prefHeight="631.0" prefWidth="270.0">
                     <columns>
                       <TableColumn fx:id="TabRegColNome" prefWidth="58.0" text="Nome" />
-                      <TableColumn fx:id="TabRegColNumero" minWidth="4.0" prefWidth="71.0" text="Numero" />
+                      <TableColumn fx:id="TabRegColNumero" minWidth="4.0" prefWidth="71.0" text="Número" />
                         <TableColumn fx:id="TabRegColValor" prefWidth="121.0" text="Valor" />
                     </columns>
                   </TableView>
