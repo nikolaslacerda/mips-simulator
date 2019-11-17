@@ -55,6 +55,22 @@ public class ConversorDeBits {
         }
     }
 
+    //Converte um binario para 32 bits
+    public String to32Bits(String bin) throws Exception {
+        if (bin.length() < 32) {
+            int zerosFaltantes = 32 - bin.length();
+            String resultado = "";
+            for (int i = 0; i < zerosFaltantes; i++) {
+                resultado += "0";
+            }
+            return resultado + bin;
+        } else if (bin.length() == 32) {
+            return bin;
+        } else {
+            throw new Exception("Overflow");
+        }
+    }
+
     //Converte um hexadecimal para binario
     public String hexaToBin(String hex) {
         HashMap<Character, String> hexas = new HashMap();

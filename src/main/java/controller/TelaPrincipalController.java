@@ -4,9 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import model.TabelaInstrucoes;
 import model.TabelaRegistradores;
 
@@ -71,5 +74,39 @@ public class TelaPrincipalController implements Initializable {
 
         TabelaRegistradores.setItems(data);
         TabelaInstrucao.setItems(data2);
+        styleRowColor();
+
+    }
+
+    private void styleRowColor() {
+        Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
+                = //
+                new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
+                    @Override
+                    public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
+                        final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    setText(item);
+                                    TableRow<TabelaInstrucoes> row = getTableRow();
+                                    if (row.getItem().getRowEndereco().equals("0")) {
+                                        System.out.println("corrrrrrrrr");
+                                        row.getStyleClass().clear();
+                                        row.getStyleClass().add("red-row");
+                                    }
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        TabInstColEndereco.setCellFactory(cellFactory);
+
     }
 }

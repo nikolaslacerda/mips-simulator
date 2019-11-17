@@ -6,7 +6,8 @@ public class Executa {
 	private AluControl aluControl = AluControl.getInstance();
     private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
     private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
-	private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance()
+	private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
+	private ConversorDeBits converte = new ConversorDeBits();
 
 	private static Executa instance = Executa.getInstance();
 
@@ -21,41 +22,68 @@ public class Executa {
 
 	public void ExecutaPrograma() throws Exception {
 
+	     //String no assemble começa no bit 31 e vai até o 0
+
 	 	//PC
-        int pc = memoriaDeInstrucoes.getPosAtual();
-        String instrucao = memoriaDeInstrucoes.getInstrucao(pc);
-		String opcode = instrucao.substring(0,6);
-		String func = instrucao.substring(26,32);
+        int pc = 0;
+
+        String instrucao = memoriaDeInstrucoes.getInstrucao(0);
+
+        System.out.println("EXECUTANDO INSTRUÇÃO: " + instrucao);
+
+		String opcode = instrucao.substring(0, 6);
+
+        System.out.println("OPCODE: " + opcode);
+
+        String bitsDeFuncao = instrucao.substring(26,32);
+
+        System.out.println("BITS DE FUNCAO: " + bitsDeFuncao);
 
 		// Inicia bloco de controles
         blocoDeControle.iniciaBlocoDeControle(opcode);
 
         // ************ ETAPA DECODER ***************** //
 
-        String readRegister1 = instrucao.substring(21,26);
-        String readRegister2 = instrucao.substring(16,21);
-        String writeRegister = (blocoDeControle.getRegDst() == 0)?instrucao.substring(16,21):instrucao.substring(11,16); // MUTEX
+        String readRegister1 = instrucao.substring(6, 11);
+        //System.out.println(readRegister1);
+        System.out.println("R1: " + bancoDeRegistradores.getRegisterByBin(readRegister1));
 
-        aluControl.executa(opcode);
-        signExtend.executa(instrucao.substring(0,16));
+        String readRegister2 = instrucao.substring(11, 16);
+        System.out.println("R2: " + bancoDeRegistradores.getRegisterByBin(readRegister2));
 
-        int readData1 = bancoDeRegistradores.getValue(readRegister1); //trocar para string(32 bits)
-        int readData2 = (blocoDeControle.getAluSrc() == 0)?bancoDeRegistradores.getValue(readRegister2):signExtend.getValue(); // MUTEX
+        //System.out.println(blocoDeControle.getRegDst());
+        String writeRegister = (blocoDeControle.getRegDst() == 0)?instrucao.substring(11,16):instrucao.substring(16,21); // MUTEX
+        System.out.println("WR: " + bancoDeRegistradores.getRegisterByBin(writeRegister));
 
-        ula.calcula(readData1, readData2);
+        String aluControlResult = aluControl.executa(bitsDeFuncao);
+        System.out.println("AluCONTROL: " + aluControlResult);
+
+        String signExtend = converte.to32Bits(instrucao.substring(16,32)); //signExtend
+
+        String readData1 = bancoDeRegistradores.getValue(readRegister1); //trocar para string(32 bits)
+        System.out.println("Valor do R1: " + readData1);
+        String readData2 = (blocoDeControle.getAluSrc() == 0)?bancoDeRegistradores.getValue(readRegister2):signExtend; // MUTEX
+        System.out.println("Valor do R2: " + readData2);
+
+        String aluResult = ula.calcula(aluControlResult, readData1, readData2);
+        System.out.println("Resultado Calculado na ULA: " + aluResult);
 
         // ************ ETAPA MEMORY ***************** //
 
-        String address = ula.getAluResult();
-        String readDataMemory = (blocoDeControle.getMemWrite() == 1)?memoriaDeDados.readDado(address):"null";
-        int writeDataMemory = (blocoDeControle.getMemRead() == 1)?readData2:"null"; //trocar para string(32 bits)
-        int writeDataRegister = (blocoDeControle.getMemToReg() == 1)?writeDataMemory:ula.getAluResult(); //trocar 32 bits
+        String address = aluResult;
+
+        //String readDataMemory = (blocoDeControle.getMemWrite() == 1)?memoriaDeDados.readDado(address):"null";
+        String writeDataMemory = (blocoDeControle.getMemRead() == 1)?readData2:"null"; //trocar para string(32 bits)
+        String writeDataRegister = (blocoDeControle.getMemToReg() == 1)?writeDataMemory:aluResult; //trocar 32
+
         if (blocoDeControle.getRegWrite() == 1){
             bancoDeRegistradores.setValue(writeRegister, writeDataRegister);
         }
 
-        // ********** FIM DA EXECUCAO ***********//
+        System.out.println("Valor no registrador write: " + bancoDeRegistradores.getValue(writeRegister));
+        // ********** FIM DA EXECUCAO ***********/
 
+        pc++;
 	}
 
 }
