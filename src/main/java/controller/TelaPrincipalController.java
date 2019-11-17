@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.TabelaInstrucoes;
@@ -40,9 +37,20 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     TableColumn<TabelaInstrucoes, String> TabInstColInstrucao;
 
+    //Botoes
+
+    @FXML
+    private Button btn_next;
+
+    Executa executa = Executa.getInstance();
 
     public ObservableList<TabelaRegistradores> data = FXCollections.observableArrayList();
     public ObservableList<TabelaInstrucoes> data2 = FXCollections.observableArrayList();
+    ConversorDeBits converte = new ConversorDeBits();
+
+    BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
+    HashMap<String, String> listaDeRegistradores = bancoDeRegistradores.getListaDeRegistradores();
+    HashMap<String, Integer> listaDeRegistradoresNumeros = bancoDeRegistradores.getListaDeRegistradoresNumeros();
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -54,26 +62,22 @@ public class TelaPrincipalController implements Initializable {
         TabInstColCodigo.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowCodigo"));
         TabInstColInstrucao.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowInstrucao"));
 
-        ConversorDeBits converte = new ConversorDeBits();
-
-        BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
-        HashMap<String, String> listaDeRegistradores = bancoDeRegistradores.getListaDeRegistradores();
-        HashMap<String, Integer> listaDeRegistradoresNumeros = bancoDeRegistradores.getListaDeRegistradoresNumeros();
 
         MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
         String[] memoriaI = memoriaDeInstrucoes.getMemoria();
         String[] instrucoesI = memoriaDeInstrucoes.getInstrucoes();
 
-        for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
-            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), converte.binToHex(registrador.getValue())));
-        }
-
         for (int i = 0; i < memoriaDeInstrucoes.getPosAtual(); i++) {
             this.data2.add(new TabelaInstrucoes("0", memoriaI[i], instrucoesI[i]));
         }
 
+        for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
+            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), converte.binToHex(registrador.getValue())));
+        }
+
         TabelaRegistradores.setItems(data);
         TabelaInstrucao.setItems(data2);
+
         styleRowColor();
 
     }
@@ -95,10 +99,9 @@ public class TelaPrincipalController implements Initializable {
                                 } else {
                                     setText(item);
                                     TableRow<TabelaInstrucoes> row = getTableRow();
-                                    if (row.getItem().getRowEndereco().equals("0")) {
-                                        System.out.println("corrrrrrrrr");
+                                    if (row.getItem().getRowInstrucao().equals("addu $t0,$t1,$t2")) {
                                         row.getStyleClass().clear();
-                                        row.getStyleClass().add("red-row");
+                                        row.setStyle("-fx-background-color: palegreen");
                                     }
                                 }
                             }
@@ -106,7 +109,57 @@ public class TelaPrincipalController implements Initializable {
                         return cell;
                     }
                 };
-        TabInstColEndereco.setCellFactory(cellFactory);
+        TabInstColInstrucao.setCellFactory(cellFactory);
+
+    }
+
+    public  void next() throws Exception {
+
+        executa.ExecutaPrograma();
+
+        Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
+                = //
+                new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
+                    @Override
+                    public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
+                        final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    setText(item);
+                                    TableRow<TabelaInstrucoes> row = getTableRow();
+                                    if (row.getItem().getRowInstrucao().equals("addu $t3,$t0,$t2")) {
+                                        row.getStyleClass().clear();
+                                        row.setStyle("-fx-background-color: palegreen");
+                                    }
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        TabInstColInstrucao.setCellFactory(cellFactory);
+        atualizaRegistradores();
+    }
+
+    public void atualizaRegistradores(){
+
+        System.out.println("Entrou aqui");
+        TabelaRegistradores.getItems().clear();
+
+        for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
+            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), converte.binToHex(registrador.getValue())));
+        }
+
+        TabelaRegistradores.setItems(data);
+
+
+
 
     }
 }

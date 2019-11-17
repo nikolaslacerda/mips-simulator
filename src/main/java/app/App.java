@@ -67,7 +67,7 @@ public class App extends Application {
 			leitorDeArquivo.lePrograma();
 			//memoriaDeInstrucoes.imprime();
 			//System.out.println(memoriaDeInstrucoes.getPosAtual());
-			executa.ExecutaPrograma();
+			//executa.ExecutaPrograma();
 			//memoriaDeDados.imprime();
 			//registradores.imprime();
 

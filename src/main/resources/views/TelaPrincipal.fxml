@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -42,6 +43,7 @@
                   <Image url="@../img/ic_close.png" />
                </image>
             </ImageView>
+            <Button fx:id="next" layoutX="200.0" layoutY="10.0" mnemonicParsing="false" onAction="#next" text="Next" />
          </children>
       </AnchorPane>
     <SplitPane dividerPositions="0.7470784641068448" focusTraversable="true" prefHeight="645.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
