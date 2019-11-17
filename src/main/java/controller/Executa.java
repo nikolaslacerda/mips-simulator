@@ -5,77 +5,56 @@ public class Executa {
 	private MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
 	private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
 	private ULA ula = ULA.getInstance();
+	private AluControl aluControl = AluControl.getInstance();
 	private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
 	private static Executa instance = Executa.getInstance();
-	
+
 	 public static Executa getInstance() {
 	        if (instance == null) {
 	            instance = new Executa();
 	        }
 	        return instance;
 	}
-	
-	public Executa() {	} 
-	
-	public void ExecutaPrograma() {
 
-	 	/* To Do */
-		// Addu
-		// Addiu
+	public Executa() {	}
 
+	public void ExecutaPrograma() throws Exception {
 
-		for(int i=0;i<memoriaDeInstrucoes.getPosAtual();i++){
-			
-			String instrucao = memoriaDeInstrucoes.getInstrucao(i);
-			String opcode = instrucao.substring(0,6); 
-			String func = instrucao.substring(26,32);
-			
-			if(opcode.equals("000000") && func.equals("100001")){//addu
-				blocoDeControle.iniciaBlocoDeControle(opcode);    
-				String rs = instrucao.substring(6,11);
-				String rt = instrucao.substring(11,16);
-				String rd = instrucao.substring(16,21);
-				ula.Soma2Binarios(rs,rt,rd);
-			}
-			else if(opcode.equals("000000") && func.equals("100100")){//and
-				blocoDeControle.iniciaBlocoDeControle(opcode);
-				String rs = instrucao.substring(6,11);
-				String rt = instrucao.substring(11,16);
-				String rd = instrucao.substring(16,21);
-				ula.And2Binarios(rs,rt,rd);
-			}
-			else if(opcode.equals("000000") && func.equals("000010")){//srl
-				blocoDeControle.iniciaBlocoDeControle(opcode);
-				String rt = instrucao.substring(11,16);
-				String rd = instrucao.substring(16,21);
-				String shamt = instrucao.substring(21,26);
-				ula.ShiftDireita(rt,shamt,rd);				
-			}
-			else if(opcode.equals("000000") && func.equals("000000")){//sll
-				blocoDeControle.iniciaBlocoDeControle(opcode);
-				String rt = instrucao.substring(11,16);
-				String rd = instrucao.substring(16,21);
-				String shamt = instrucao.substring(21,26);
-				ula.ShiftEsquerda(rt,shamt,rd);					
-			}
-			else if(opcode.equals("001001")) {//addiu
-	
-			}
-			else if(opcode.equals("000100")) {//beq
-	
-			}
-			else if(opcode.equals("000010")) {//j
-				
-			}
-			else if(opcode.equals("100011")) {//lw
-				//usa lui
-			}
-			else if(opcode.equals("101011")) {//sw
-				
-			}
-			//falta ori
-			else {System.out.println("Erro: Classe Executa.java");}
-		}
+	 	//PC
+        int pc = memoriaDeInstrucoes.getPosAtual();
+        String instrucao = memoriaDeInstrucoes.getInstrucao(pc);
+		String opcode = instrucao.substring(0,6);
+		String func = instrucao.substring(26,32);
+
+		// Inicia bloco de controles
+        blocoDeControle.iniciaBlocoDeControle(opcode);
+
+        // ************ ETAPA DECODER ***************** //
+
+        String readRegister1 = instrucao.substring(21,26);
+        String readRegister2 = instrucao.substring(16,21);
+        String writeRegister = (blocoDeControle.getRegDst() == 0)?instrucao.substring(16,21):instrucao.substring(11,16); // MUTEX
+
+        aluControl.executa(opcode);
+        signExtend.executa(instrucao.substring(0,16));
+
+        int readData1 = bancoDeRegistradores.getValue(readRegister1); //trocar para string(32 bits)
+        int readData2 = (blocoDeControle.getAluSrc() == 0)?bancoDeRegistradores.getValue(readRegister2):signExtend.getValue(); // MUTEX
+
+        ula.calcula(readData1, readData2);
+
+        // ************ ETAPA MEMORY ***************** //
+
+        String address = ula.getAluResult();
+        String readDataMemory = (blocoDeControle.getMemWrite() == 1)?memoriaDeDados.readDado(address):"null";
+        int writeDataMemory = (blocoDeControle.getMemRead() == 1)?readData2:"null"; //trocar para string(32 bits)
+        int writeDataRegister = (blocoDeControle.getMemToReg() == 1)?writeDataMemory:ula.getAluResult(); //trocar 32 bits
+        if (blocoDeControle.getRegWrite() == 1){
+            bancoDeRegistradores.setValue(writeRegister, writeDataRegister);
+        }
+
+        // ********** FIM DA EXECUCAO ***********//
+
 	}
 
 }
