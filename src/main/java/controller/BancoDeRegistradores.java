@@ -103,7 +103,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradores.containsKey(registrador)) {
             listaDeRegistradores.put(registrador, Integer.toBinaryString(valor));
         } else {
-            throw new Exception("Registrador Inválido!");
+            throw new Exception("setValue...Registrador Invalido!");
         }
     }
 
@@ -111,7 +111,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradores.containsKey(registrador)) {
             return Integer.parseInt(listaDeRegistradores.get(registrador), 2);
         } else {
-            throw new Exception("Registrador Invalido!");
+            throw new Exception("getValue...Registrador Invalido!");
         }
     }
 
@@ -119,37 +119,14 @@ public class BancoDeRegistradores {
         if (listaDeRegistradoresNumeros.containsKey(registrador)) {
             return listaDeRegistradoresNumeros.get(registrador);
         } else {
-            throw new Exception("Registrador Invalido!");
+            throw new Exception("getRegisterNumber...Registrador Invalido!");
         }
     }
-
+    
     public void imprime() {
         System.out.println("### Registradores ###");
         for (Map.Entry<String, String> entry : listaDeRegistradores.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
     }
-    
-    public void setRegBin(String reg,int valor) { //recebe reg em binario
-    	int numReg = Integer.parseInt(reg, 2);
-    	String key="";
-    	for(Map.Entry<String,Integer> entry: listaDeRegistradoresNumeros.entrySet()) { 
-            if(entry.getValue()==numReg) {
-            	key = entry.getKey();
-            	break;
-            }
-        }
-    	listaDeRegistradores.put(key, Integer.toBinaryString(valor));
-    }
-    public Integer getValorRegBin(String reg) {
-    	int numReg = Integer.parseInt(reg, 2);
-    	for(Map.Entry<String,Integer> entry: listaDeRegistradoresNumeros.entrySet()) { 
-            if(entry.getValue()==numReg) {
-            	String key=entry.getKey();
-            	return Integer.parseInt(listaDeRegistradores.get(key), 2);
-            }
-        }
-    	return 0;
-    }
-
 }

@@ -28,37 +28,35 @@ public class ULA {
 	}
 
 	public void Soma4Pc() throws Exception {
-        int x = bancoDeRegistradores.getValue("pc") + 4;
-        bancoDeRegistradores.setValue("pc", x);
-    }
+		int x=bancoDeRegistradores.getValue("pc")+4;
+		bancoDeRegistradores.setValue("pc", x);
+	}
+	public void Soma2Binarios(String b1,String b2,String rd) throws Exception {
+		int x = bancoDeRegistradores.getValue(b1);
+		int y = bancoDeRegistradores.getValue(b2);
+		int soma =x+y;
+		bancoDeRegistradores.setValue(rd,soma); //salva no banco de registradores em decimal
+	}
 
-    public void Soma2Binarios(String b1, String b2, String rd) {
-        int x = bancoDeRegistradores.getValorRegBin(b1);
-        int y = bancoDeRegistradores.getValorRegBin(b2);
-        int soma = x + y;
-        bancoDeRegistradores.setRegBin(rd, soma); //salva no banco de registradores em decimal
-    }
+	public void CalculaEnderecoDeSalto() {}
 
-    public void CalculaEnderecoDeSalto() {
-    }
+	public void And2Binarios(String b1,String b2,String rd) throws Exception { //salva no banco de registradores em decimal
+		int x = bancoDeRegistradores.getValue(b1);
+		int y = bancoDeRegistradores.getValue(b2);
+		int and = x & y;
+		bancoDeRegistradores.setValue(rd,and);
+	}
 
-    public void And2Binarios(String b1, String b2, String rd) { //salva no banco de registradores em decimal
-        int x = bancoDeRegistradores.getValorRegBin(b1);
-        int y = bancoDeRegistradores.getValorRegBin(b2);
-        int and = x & y;
-        bancoDeRegistradores.setRegBin(rd, and);
-    }
+	public void ShiftDireita(String b,String shamt,String rd) throws Exception {
+		int x = bancoDeRegistradores.getValue(b);
+		int srl = x >> Integer.parseInt(shamt,2);
+		bancoDeRegistradores.setValue(rd,srl);
+	}
 
-    public void ShiftDireita(String b, String shamt, String rd) {
-        int x = bancoDeRegistradores.getValorRegBin(b);
-        int srl = x >> Integer.parseInt(shamt, 2);
-        bancoDeRegistradores.setRegBin(rd, srl);
-    }
-
-    public void ShiftEsquerda(String b, String shamt, String rd) {
-        int x = bancoDeRegistradores.getValorRegBin(b);
-        int sll = x << Integer.parseInt(shamt, 2);
-        bancoDeRegistradores.setRegBin(rd, sll);
-    }
+	public void ShiftEsquerda(String b,String shamt,String rd) throws Exception {
+		int x = bancoDeRegistradores.getValue(b);
+		int sll = x << Integer.parseInt(shamt,2);
+		bancoDeRegistradores.setValue(rd,sll);
+	}
 
 }

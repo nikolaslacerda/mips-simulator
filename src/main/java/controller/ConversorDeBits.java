@@ -4,10 +4,9 @@ import java.util.HashMap;
 
 public class ConversorDeBits {
 
-    public ConversorDeBits() {
-    }
+    public ConversorDeBits() {}
 
-    //Converte um binário para 5 bits
+    //Converte um binario para 5 bits
     public String to5Bits(String bin) throws Exception {
         if (bin.length() < 5) {
             int zerosFaltantes = 5 - bin.length();

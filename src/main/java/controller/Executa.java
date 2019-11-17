@@ -1,12 +1,13 @@
 package controller;
 
 public class Executa {
-	private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
 	private MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
-	private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
 	private ULA ula = ULA.getInstance();
 	private AluControl aluControl = AluControl.getInstance();
-	private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
+    private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
+    private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
+	private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance()
+
 	private static Executa instance = Executa.getInstance();
 
 	 public static Executa getInstance() {

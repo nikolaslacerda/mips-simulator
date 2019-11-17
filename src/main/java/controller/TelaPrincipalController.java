@@ -41,7 +41,6 @@ public class TelaPrincipalController implements Initializable {
     public ObservableList<TabelaRegistradores> data = FXCollections.observableArrayList();
     public ObservableList<TabelaInstrucoes> data2 = FXCollections.observableArrayList();
 
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         TabRegColNome.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowNome"));
