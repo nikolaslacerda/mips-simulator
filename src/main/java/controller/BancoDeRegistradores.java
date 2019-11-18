@@ -47,9 +47,9 @@ public class BancoDeRegistradores {
         listaDeRegistradores.put("$sp", "00000000000000000000000000000000");
         listaDeRegistradores.put("$fp", "00000000000000000000000000000000");
         listaDeRegistradores.put("$ra", "00000000000000000000000000000000");
-        listaDeRegistradores.put("pc", "00000000000000000000000000000000");
-        listaDeRegistradores.put("hi", "00000000000000000000000000000000");
-        listaDeRegistradores.put("lo", "00000000000000000000000000000000");
+        //listaDeRegistradores.put("pc", "00000000000000000000000000000000");
+        //listaDeRegistradores.put("hi", "00000000000000000000000000000000");
+        //listaDeRegistradores.put("lo", "00000000000000000000000000000000");
 
         listaDeRegistradoresNumeros.put("$zero", 0);
         listaDeRegistradoresNumeros.put("$at", 1);

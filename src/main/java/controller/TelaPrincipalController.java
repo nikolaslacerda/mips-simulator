@@ -50,10 +50,12 @@ public class TelaPrincipalController implements Initializable {
     public ObservableList<TabelaRegistradores> data = FXCollections.observableArrayList();
     public ObservableList<TabelaInstrucoes> data2 = FXCollections.observableArrayList();
     ConversorDeBits converte = new ConversorDeBits();
-
+    CustomComparator customComparator = new CustomComparator();
     BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
     HashMap<String, String> listaDeRegistradores = bancoDeRegistradores.getListaDeRegistradores();
     HashMap<String, Integer> listaDeRegistradoresNumeros = bancoDeRegistradores.getListaDeRegistradoresNumeros();
+
+
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -64,7 +66,6 @@ public class TelaPrincipalController implements Initializable {
         TabInstColEndereco.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowEndereco"));
         TabInstColCodigo.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowCodigo"));
         TabInstColInstrucao.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowInstrucao"));
-
 
         MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
         String[] memoriaI = memoriaDeInstrucoes.getMemoria();
@@ -80,6 +81,9 @@ public class TelaPrincipalController implements Initializable {
 
         TabelaRegistradores.setItems(data);
         TabelaInstrucao.setItems(data2);
+
+        TabRegColNumero.setComparator(customComparator);
+        TabelaRegistradores.getSortOrder().add(TabRegColNumero);
 
         styleRowColor();
 
@@ -150,6 +154,7 @@ public class TelaPrincipalController implements Initializable {
 
     public void atualizaRegistradores(){
 
+
         System.out.println("Entrou aqui");
         TabelaRegistradores.getItems().clear();
 
@@ -158,6 +163,8 @@ public class TelaPrincipalController implements Initializable {
         }
 
         TabelaRegistradores.setItems(data);
+        TabRegColNumero.setComparator(customComparator);
+        TabelaRegistradores.getSortOrder().add(TabRegColNumero);
 
     }
 

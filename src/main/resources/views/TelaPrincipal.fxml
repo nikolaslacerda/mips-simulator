@@ -101,9 +101,9 @@
                                     </Label>
                                     <TableView fx:id="TabelaInstrucao" layoutX="18.0" layoutY="44.0" prefHeight="334.0" prefWidth="847.0">
                                       <columns>
-                                        <TableColumn fx:id="TabInstColEndereco" prefWidth="182.0" text="Endereço" />
-                                        <TableColumn fx:id="TabInstColCodigo" prefWidth="320.0" text="Código" />
-                                          <TableColumn fx:id="TabInstColInstrucao" prefWidth="343.0" text="Instrução" />
+                                        <TableColumn fx:id="TabInstColEndereco" editable="false" prefWidth="182.0" sortable="false" text="Endereço" />
+                                        <TableColumn fx:id="TabInstColCodigo" editable="false" prefWidth="320.0" sortable="false" text="Código" />
+                                          <TableColumn fx:id="TabInstColInstrucao" editable="false" prefWidth="343.0" sortable="false" text="Instrução" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -120,8 +120,8 @@
                                     </Label>
                                     <TableView fx:id="TabelaMemoria" layoutX="14.0" layoutY="57.0" prefHeight="200.0" prefWidth="847.0">
                                       <columns>
-                                        <TableColumn fx:id="TabMemColEndereco" prefWidth="323.0" text="Endereço" />
-                                        <TableColumn fx:id="TabMemColValor" prefWidth="523.0" text="Valor" />
+                                        <TableColumn fx:id="TabMemColEndereco" prefWidth="323.0" text="Endereço" visible="false" />
+                                        <TableColumn fx:id="TabMemColValor" editable="false" prefWidth="523.0" sortable="false" text="Valor" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -144,9 +144,9 @@
                   </Label>
                   <TableView fx:id="TabelaRegistradores" layoutX="15.0" layoutY="42.0" prefHeight="631.0" prefWidth="270.0">
                     <columns>
-                      <TableColumn fx:id="TabRegColNome" prefWidth="58.0" text="Nome" />
-                      <TableColumn fx:id="TabRegColNumero" minWidth="4.0" prefWidth="71.0" text="Número" />
-                        <TableColumn fx:id="TabRegColValor" prefWidth="121.0" text="Valor" />
+                      <TableColumn fx:id="TabRegColNome" editable="false" prefWidth="58.0" sortable="false" text="Nome" />
+                      <TableColumn fx:id="TabRegColNumero" editable="false" minWidth="4.0" prefWidth="71.0"  text="Número" />
+                        <TableColumn fx:id="TabRegColValor" editable="false" prefWidth="121.0" sortable="false" text="Valor" />
                     </columns>
                   </TableView>
           </children>
