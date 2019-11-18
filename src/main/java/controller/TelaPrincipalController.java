@@ -42,6 +42,9 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private Button btn_next;
 
+    @FXML
+    private Button btn_close;
+
     Executa executa = Executa.getInstance();
 
     public ObservableList<TabelaRegistradores> data = FXCollections.observableArrayList();
@@ -158,8 +161,9 @@ public class TelaPrincipalController implements Initializable {
 
         TabelaRegistradores.setItems(data);
 
+    }
 
-
-
+    public void exit(){
+        System.exit(0);
     }
 }

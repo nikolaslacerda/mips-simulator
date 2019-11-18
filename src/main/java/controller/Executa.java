@@ -11,6 +11,8 @@ public class Executa {
 
 	private static Executa instance = Executa.getInstance();
 
+	private int pc = 0;
+
 	 public static Executa getInstance() {
 	        if (instance == null) {
 	            instance = new Executa();
@@ -25,9 +27,8 @@ public class Executa {
 	     //String no assemble começa no bit 31 e vai até o 0
 
 	 	//PC
-        int pc = 0;
 
-        String instrucao = memoriaDeInstrucoes.getInstrucao(0);
+        String instrucao = memoriaDeInstrucoes.getInstrucao(pc);
 
         System.out.println("EXECUTANDO INSTRUÇÃO: " + instrucao);
 
@@ -83,7 +84,7 @@ public class Executa {
         System.out.println("Valor no registrador write: " + bancoDeRegistradores.getValue(writeRegister));
         // ********** FIM DA EXECUCAO ***********/
 
-        pc++;
+        this.pc++;
 	}
 
 }
