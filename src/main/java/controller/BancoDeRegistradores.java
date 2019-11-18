@@ -138,7 +138,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradoresBin.containsKey(bin)) {
             listaDeRegistradores.put(listaDeRegistradoresBin.get(bin), valor);
         } else {
-            throw new Exception("setValue...Registrador Invalido!");
+            throw new Exception("BancoDeRegistradores>setValue>Registrador Invalido!");
         }
     }
 
@@ -146,7 +146,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradoresBin.containsKey(bin)) {
             return listaDeRegistradores.get(listaDeRegistradoresBin.get(bin));
         } else {
-            throw new Exception("getValue...Registrador Invalido!");
+            throw new Exception("BancoDeRegistradores>getValue>Registrador Invalido!");
         }
     }
 
@@ -154,7 +154,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradoresNumeros.containsKey(registrador)) {
             return listaDeRegistradoresNumeros.get(registrador);
         } else {
-            throw new Exception("getRegisterNumber...Registrador Invalido!");
+            throw new Exception("BancoDeRegistradores>getRegisterNumber>Registrador Invalido!");
         }
     }
 
@@ -162,7 +162,7 @@ public class BancoDeRegistradores {
         if (listaDeRegistradoresBin.containsKey(bin)) {
             return listaDeRegistradoresBin.get(bin);
         } else {
-            throw new Exception("getRegisterBin...Binario Invalido!");
+            throw new Exception("BancoDeRegistradores>getRegisterBin>Binario Invalido!");
         }
     }
     

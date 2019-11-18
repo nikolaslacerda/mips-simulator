@@ -1,11 +1,9 @@
 package controller;
 
 public class ULA {
-    private int tagZero = 0;
+    //private int tagZero = 0;
 
     private static ULA uniqueInstance;
-    private static BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
-    private static AluControl aluControl = AluControl.getInstance();
     ConversorDeBits converte = new ConversorDeBits();
 
     public static ULA getInstance() {
@@ -26,7 +24,7 @@ public class ULA {
             //System.out.println(Integer.toBinaryString(Integer.parseInt(readData1,2) - Integer.parseInt(readData2,2)));
             return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) - Integer.parseInt(readData2,2)));
         }else{
-            return "EDITANDO";
+            return "ULA>Calcula>EDITANDO";
         }
     }
 

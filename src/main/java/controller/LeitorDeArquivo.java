@@ -155,7 +155,7 @@ public class LeitorDeArquivo {
 
         } else {
             System.out.println(instrucaoAtual);
-            throw new Exception("Instrucao Invalida!");
+            throw new Exception("LeitorDeArquivo>CodificaInstrucao>Instrucao Invalida!");
         }
     }
 
@@ -201,9 +201,9 @@ public class LeitorDeArquivo {
                         linhaNum++;
                     }
                 }
-                throw new Exception("Label que o beq leva se for verdade nao existe");
+                throw new Exception("LeitorDeArquivo>getNumeroDaLinha>Label que o beq leva se for verdade nao existe");
             }
         }
-        throw new Exception("Erro!");
+        throw new Exception("LeitorDeArquivo>getNumeroDaLinha>Erro!");
     }
 }

@@ -20,10 +20,8 @@ public class MemoriaDeInstrucoes {
 
     //Construtor
     private MemoriaDeInstrucoes() {
-
         memoria = new String[SIZE];
         instrucoes = new String[SIZE];
-
     }
 
     //Singleton

@@ -18,7 +18,7 @@ public class ConversorDeBits {
         } else if (bin.length() == 5) {
             return bin;
         } else {
-            throw new Exception("Registrador maior que 31????");
+            throw new Exception("ConversorDeBits>to5Bits>Registrador maior que 32 bits");
         }
     }
 
@@ -51,7 +51,7 @@ public class ConversorDeBits {
         } else if (bin.length() == 26) {
             return bin;
         } else {
-            throw new Exception("Overflow");
+            throw new Exception("ConversorDeBits>to26Bits>Overflow");
         }
     }
 
@@ -67,7 +67,7 @@ public class ConversorDeBits {
         } else if (bin.length() == 32) {
             return bin;
         } else {
-            throw new Exception("Overflow");
+            throw new Exception("ConversorDeBits>to32Bits>Overflow");
         }
     }
 

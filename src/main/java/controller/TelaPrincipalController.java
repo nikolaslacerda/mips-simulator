@@ -89,7 +89,6 @@ public class TelaPrincipalController implements Initializable {
         Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
                 = //
                 new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
-                    @Override
                     public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
                         final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
 
@@ -123,7 +122,6 @@ public class TelaPrincipalController implements Initializable {
         Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
                 = //
                 new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
-                    @Override
                     public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
                         final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
 

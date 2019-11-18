@@ -6,7 +6,6 @@ public class Executa {
 	private AluControl aluControl = AluControl.getInstance();
     private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
     private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
-	private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
 	private ConversorDeBits converte = new ConversorDeBits();
 
 	private static Executa instance = Executa.getInstance();
