@@ -15,12 +15,12 @@ public class AluControl {
     }
 
     public String executa(String bitsDeFuncao){
-        if(blocoDeControle.getAluOp0() == 00){ // load & store
+        if(blocoDeControle.getAluOp0() == 0 && blocoDeControle.getAluOp1() == 0){ // load & store
             return "010";
-        }else if(blocoDeControle.getAluOp0() == 01){ // beq
+        }else if(blocoDeControle.getAluOp0() == 1 &&  blocoDeControle.getAluOp1() == 0){ // beq
             return "110";
-        }else if(blocoDeControle.getAluOp0() == 10) { // tipo R
-            if (bitsDeFuncao.equals("100000")) { // add
+        }else if(blocoDeControle.getAluOp0() == 0 && blocoDeControle.getAluOp1() == 1) { // tipo R
+            if (bitsDeFuncao.equals("100001")) { // addu
                 return "010";
             } else if (bitsDeFuncao.equals("100010")) {// sub
                 return "110";
