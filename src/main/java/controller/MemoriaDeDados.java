@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.HashMap;
+
 public class MemoriaDeDados {
 
     //Singleton
@@ -7,6 +9,9 @@ public class MemoriaDeDados {
 
     //Array da memoria de dados
     private String[] memoria;
+
+    //referencia
+    private HashMap<String, String> referencia;
 
     //Proxima posicao livre
     private int posicaoAtual;

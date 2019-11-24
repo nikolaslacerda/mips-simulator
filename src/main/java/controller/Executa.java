@@ -10,8 +10,6 @@ public class Executa {
 
 	private static Executa instance = Executa.getInstance();
 
-	private int pc = 0;
-
 	 public static Executa getInstance() {
 	        if (instance == null) {
 	            instance = new Executa();
@@ -23,13 +21,25 @@ public class Executa {
 
 	public void ExecutaPrograma() throws Exception {
 
+	     //LUI []
+         //ORI []
+	     //ADDU [FEITO]
+         //ADDIU [FEITO]
+         //LW []
+         //SW []
+         //BEQ []
+         //J []
+         //AND []
+         //SLL []
+         //SRL []
+
 	    //String no assemble começa no bit 31 e vai até o 0
 
 	 	//PC
 
-        String instrucao = memoriaDeInstrucoes.getInstrucao(pc);
+        String instrucao = memoriaDeInstrucoes.getInstrucao();
 
-        System.out.println("EXECUTANDO INSTRUÇÃO: " + instrucao);
+        System.out.println("EXECUTANDO INSTRUÇÃO: " + instrucao + " / " + memoriaDeInstrucoes.getInstrucaoNome());
 
 		String opcode = instrucao.substring(0, 6);
 
@@ -55,10 +65,11 @@ public class Executa {
         String writeRegister = (blocoDeControle.getRegDst() == 0)?instrucao.substring(11,16):instrucao.substring(16,21); // MUTEX
         System.out.println("WR: " + bancoDeRegistradores.getRegisterByBin(writeRegister));
 
+        String signExtend = converte.to32Bits(instrucao.substring(16,32)); //signExtend
+        System.out.println("Imediato: " + signExtend);
+
         String aluControlResult = aluControl.executa(bitsDeFuncao);
         System.out.println("AluCONTROL: " + aluControlResult);
-
-        String signExtend = converte.to32Bits(instrucao.substring(16,32)); //signExtend
 
         String readData1 = bancoDeRegistradores.getValue(readRegister1); //trocar para string(32 bits)
         System.out.println("Valor do R1: " + readData1);
@@ -83,7 +94,7 @@ public class Executa {
         System.out.println("Valor no registrador write: " + bancoDeRegistradores.getValue(writeRegister));
         // ********** FIM DA EXECUCAO ***********/
 
-        this.pc++;
+        memoriaDeInstrucoes.pc4();
 	}
 
 }

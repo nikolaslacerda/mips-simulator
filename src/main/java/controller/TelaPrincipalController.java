@@ -51,6 +51,7 @@ public class TelaPrincipalController implements Initializable {
     public ObservableList<TabelaInstrucoes> data2 = FXCollections.observableArrayList();
     ConversorDeBits converte = new ConversorDeBits();
     CustomComparator customComparator = new CustomComparator();
+    MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
     BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
     HashMap<String, String> listaDeRegistradores = bancoDeRegistradores.getListaDeRegistradores();
     HashMap<String, Integer> listaDeRegistradoresNumeros = bancoDeRegistradores.getListaDeRegistradoresNumeros();
@@ -108,7 +109,7 @@ public class TelaPrincipalController implements Initializable {
                                     setText(item);
                                     TableRow<TabelaInstrucoes> row = getTableRow();
                                     if(row.getItem().getRowInstrucao()!=null) {
-	                                    if (row.getItem().getRowInstrucao().equals("addu $t0,$t1,$t2")) {
+	                                    if (row.getItem().getRowInstrucao().equals(memoriaDeInstrucoes.getInstrucaoNome())) {
 	                                        row.getStyleClass().clear();
 	                                        row.setStyle("-fx-background-color: palegreen");
 	                                    }
@@ -120,10 +121,10 @@ public class TelaPrincipalController implements Initializable {
                     }
                 };
         TabInstColInstrucao.setCellFactory(cellFactory);
-    	}catch (Exception e) {System.out.println(e);}
+    	}catch (Exception e) {System.out.println("Sdasdasd" + e);}
     }
 
-    public  void next() throws Exception {
+    public  void next() {
     	try {
         executa.ExecutaPrograma();
 
@@ -142,7 +143,7 @@ public class TelaPrincipalController implements Initializable {
                                 } else {
                                     setText(item);
                                     TableRow<TabelaInstrucoes> row = getTableRow();
-                                    if (row.getItem().getRowInstrucao().equals("addu $t3,$t0,$t2")) {
+                                    if (row.getItem().getRowInstrucao().equals(memoriaDeInstrucoes.getInstrucaoNome())) {
                                         row.getStyleClass().clear();
                                         row.setStyle("-fx-background-color: palegreen");
                                     }
@@ -168,7 +169,9 @@ public class TelaPrincipalController implements Initializable {
         TabelaRegistradores.setItems(data);
         TabRegColNumero.setComparator(customComparator);
         TabelaRegistradores.getSortOrder().add(TabRegColNumero);
-    	}catch (Exception e) {}
+    	}catch (Exception e) {
+            System.out.println("ASDASDSADASD");
+        }
     }
 
     public void exit(){
