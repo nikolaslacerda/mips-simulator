@@ -158,6 +158,19 @@ public class BlocoDeControle {
         this.AluSrc = 0;
         this.RegWrite = 0;
     }
+    
+    public void imprime() {
+    	System.out.println("### Sinais de controle ###");
+    	System.out.println("Jump: " + this.Jump);
+    	System.out.println("RegDst: " + this.RegDst);
+    	System.out.println("RegWrite: " + this.RegWrite);
+    	System.out.println("Branch: " + this.Branch);
+    	System.out.println("MemRead: " + this.MemRead);
+    	System.out.println("MemWrite: " + this.MemWrite);
+    	System.out.println("MemToReg: " + this.MemToReg);
+    	System.out.println("AluOp0 - AluOp1: " + this.AluOp0 + " - "+ this.AluOp1);
+    	System.out.println("AluSrc: " + this.AluSrc);
+    }
 
 }
 

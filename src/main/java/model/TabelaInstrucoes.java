@@ -30,7 +30,7 @@ public class TabelaInstrucoes {
         this.rowCodigo.set(rowCodigo);
     }
 
-    public String getRowInstrucao() {
+    public String getRowInstrucao(){
         return rowInstrucao.get();
     }
 

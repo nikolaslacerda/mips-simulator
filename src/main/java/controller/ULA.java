@@ -17,12 +17,20 @@ public class ULA {
     } //PRECISA FAZER A VERIFICACOES PRA VER SE O RESULTADO DA ULA VAI DAR MAIS QUE 32 BITS
 
     public String calcula(String aluResult, String readData1, String readData2) throws Exception {
-        if(aluResult.equals("010")){
+        if(aluResult.equals("010")){	//addu
             //System.out.println(Integer.toBinaryString(Integer.parseInt(readData1,2) + Integer.parseInt(readData2,2)));
             return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) + Integer.parseInt(readData2,2)));
-        }else if(aluResult.equals("110")){
+        }else if(aluResult.equals("110")){ //sub
             //System.out.println(Integer.toBinaryString(Integer.parseInt(readData1,2) - Integer.parseInt(readData2,2)));
             return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) - Integer.parseInt(readData2,2)));
+        }else if(aluResult.equals("000")) { //and
+        	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) & Integer.parseInt(readData2,2)));
+        }else if(aluResult.equals("001")) { //or
+        	return "";
+        }else if(aluResult.equals("111")) { //sll
+        	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) << Integer.parseInt(readData2,2)));
+        }else if(aluResult.equals("011")) { //srl
+        	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) >> Integer.parseInt(readData2,2)));
         }else{
             return "ULA>Calcula>EDITANDO";
         }

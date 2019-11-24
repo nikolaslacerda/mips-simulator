@@ -23,7 +23,7 @@ public class Executa {
 
 	public void ExecutaPrograma() throws Exception {
 
-	     //String no assemble começa no bit 31 e vai até o 0
+	    //String no assemble começa no bit 31 e vai até o 0
 
 	 	//PC
 

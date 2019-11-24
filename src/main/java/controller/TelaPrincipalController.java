@@ -58,7 +58,7 @@ public class TelaPrincipalController implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    	try {
         TabRegColNome.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowNome"));
         TabRegColNumero.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowNumero"));
         TabRegColValor.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowValor"));
@@ -86,10 +86,12 @@ public class TelaPrincipalController implements Initializable {
         TabelaRegistradores.getSortOrder().add(TabRegColNumero);
 
         styleRowColor();
+    	}catch (Exception e) {}
 
     }
 
     private void styleRowColor() {
+    	try {
         Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
                 = //
                 new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
@@ -105,9 +107,11 @@ public class TelaPrincipalController implements Initializable {
                                 } else {
                                     setText(item);
                                     TableRow<TabelaInstrucoes> row = getTableRow();
-                                    if (row.getItem().getRowInstrucao().equals("addu $t0,$t1,$t2")) {
-                                        row.getStyleClass().clear();
-                                        row.setStyle("-fx-background-color: palegreen");
+                                    if(row.getItem().getRowInstrucao()!=null) {
+	                                    if (row.getItem().getRowInstrucao().equals("addu $t0,$t1,$t2")) {
+	                                        row.getStyleClass().clear();
+	                                        row.setStyle("-fx-background-color: palegreen");
+	                                    }
                                     }
                                 }
                             }
@@ -116,11 +120,11 @@ public class TelaPrincipalController implements Initializable {
                     }
                 };
         TabInstColInstrucao.setCellFactory(cellFactory);
-
+    	}catch (Exception e) {System.out.println(e);}
     }
 
     public  void next() throws Exception {
-
+    	try {
         executa.ExecutaPrograma();
 
         Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
@@ -150,22 +154,21 @@ public class TelaPrincipalController implements Initializable {
                 };
         TabInstColInstrucao.setCellFactory(cellFactory);
         atualizaRegistradores();
+    	}catch (Exception e) {}
     }
 
     public void atualizaRegistradores(){
-
-
+    	try {
         System.out.println("Entrou aqui");
         TabelaRegistradores.getItems().clear();
 
         for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
             this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), converte.binToHex(registrador.getValue())));
         }
-
         TabelaRegistradores.setItems(data);
         TabRegColNumero.setComparator(customComparator);
         TabelaRegistradores.getSortOrder().add(TabRegColNumero);
-
+    	}catch (Exception e) {}
     }
 
     public void exit(){

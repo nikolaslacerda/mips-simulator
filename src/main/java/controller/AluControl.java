@@ -28,8 +28,6 @@ public class AluControl {
                 return "000";
             } else if (bitsDeFuncao.equals("100101")) { // or
                 return "001";
-            } else if (bitsDeFuncao.equals("101010")) { // slt
-                return "111";
             }
         }
         return "AluControl>ERRO";

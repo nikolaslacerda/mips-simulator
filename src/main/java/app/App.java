@@ -1,5 +1,31 @@
 package app;
-
+/*
+ * T2
+ * 
+ * MOSTRAR
+ * sinais de controle
+ * registradores
+ * valor EM barramentos
+ * valores na memoria
+ * 
+ * REGISTRADORES
+ * padroes iniciados em 0
+ * específicos iniciados com seus valores padroes
+ * 
+ * INSTRUÇOES
+ * luI
+ * ori
+ * addu
+ * addiu
+ * lw
+ * sw
+ * beq
+ * j
+ * and
+ * sll
+ * srl
+ * 
+ * */
 import controller.BancoDeRegistradores;
 import controller.BlocoDeControle;
 import controller.Executa;
@@ -60,7 +86,6 @@ public class App extends Application {
 		MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
 		MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
 		LeitorDeArquivo leitorDeArquivo = new LeitorDeArquivo("/files/mipsTest2.mips");
-
 		Executa executa = Executa.getInstance();
 
 		try {
