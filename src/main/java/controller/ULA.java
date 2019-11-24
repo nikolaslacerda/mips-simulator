@@ -26,11 +26,13 @@ public class ULA {
         }else if(aluResult.equals("000")) { //and
         	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) & Integer.parseInt(readData2,2)));
         }else if(aluResult.equals("001")) { //or
-        	return "";
+        	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) | Integer.parseInt(readData2,2)));
         }else if(aluResult.equals("111")) { //sll
         	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) << Integer.parseInt(readData2,2)));
         }else if(aluResult.equals("011")) { //srl
         	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) >> Integer.parseInt(readData2,2)));
+        }else if(aluResult.equals("")) { //lui
+        	return "";
         }else{
             return "ULA>Calcula>EDITANDO";
         }

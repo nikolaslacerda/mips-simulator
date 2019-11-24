@@ -1,4 +1,6 @@
 package app;
+import java.net.URL;
+
 /*
  * T2
  * 
@@ -51,7 +53,7 @@ public class App extends Application {
     public void start(final Stage stage) throws Exception {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/TelaPrincipal.fxml"));
+        	Parent root = FXMLLoader.load(getClass().getResource("/views/TelaPrincipal.fxml"));
             stage.setTitle("M.A.R.S");
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initStyle(StageStyle.TRANSPARENT);
