@@ -143,6 +143,17 @@ public class BlocoDeControle {
             this.MemWrite = 0;
             this.AluSrc = 0; //X
             this.RegWrite = 0;
+        } else if (opcode.equals("001101")) { //ori
+            this.RegDst = 0; //MUDAR PQ TÁ AO CONTRARIO EM TODASSSSSSSSSSS
+            this.Jump = 0;
+            this.Branch = 0; //X
+            this.MemRead = 0;
+            this.MemToReg = 0; //X
+            this.AluOp1 = 1; //X
+            this.AluOp0 = 1; //X
+            this.MemWrite = 0;
+            this.AluSrc = 1; //X
+            this.RegWrite = 1;
         }
     }
 

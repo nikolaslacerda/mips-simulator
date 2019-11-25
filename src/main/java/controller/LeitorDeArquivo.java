@@ -85,11 +85,11 @@ public class LeitorDeArquivo {
 	        return opcode + "00000" + converte.to5Bits(rt) + converte.to16Bits(imm);
 
         } else if (instrucaoAtual.equals("ori")) { //ori rt, rs, imm
-        	String opcode = "00‭1101‬";
+        	String opcode = "00‭1101‬"; // Da um erro inexplicavel
 	    	String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
 	        String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
 	        String imm = Integer.toBinaryString(Integer.parseInt(registradores[2]));
-	        return opcode + converte.to5Bits(rt) + converte.to5Bits(rs) + converte.to16Bits(imm);
+	        return "001101" + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(imm);
 
         } else if (instrucaoAtual.equals("addu")) {
             String opcode = "000000";

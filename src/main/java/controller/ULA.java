@@ -25,7 +25,8 @@ public class ULA {
             return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) - Integer.parseInt(readData2,2)));
         }else if(aluResult.equals("000")) { //and
         	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) & Integer.parseInt(readData2,2)));
-        }else if(aluResult.equals("001")) { //or
+        }else if(aluResult.equals("001")) { //ori
+			System.out.println("AA:" + readData1 + readData2);
         	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) | Integer.parseInt(readData2,2)));
         }else if(aluResult.equals("111")) { //sll
         	return converte.to32Bits(Integer.toBinaryString(Integer.parseInt(readData1,2) << Integer.parseInt(readData2,2)));

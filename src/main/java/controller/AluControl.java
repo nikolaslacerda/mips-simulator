@@ -19,6 +19,8 @@ public class AluControl {
             return "010";
         }else if(blocoDeControle.getAluOp0() == 1 &&  blocoDeControle.getAluOp1() == 0){ // beq
             return "110";
+        }else if(blocoDeControle.getAluOp0() == 1 &&  blocoDeControle.getAluOp1() == 1){ // ori
+            return "001";
         }else if(blocoDeControle.getAluOp0() == 0 && blocoDeControle.getAluOp1() == 1) { // tipo R
             if (bitsDeFuncao.equals("100001")) { // addu
                 return "010";
