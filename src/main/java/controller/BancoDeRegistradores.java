@@ -104,7 +104,7 @@ public class BancoDeRegistradores {
         listaDeRegistradoresBin.put("10001", "$s1");
         listaDeRegistradoresBin.put("10010", "$s2");
         listaDeRegistradoresBin.put("10011", "$s3");
-        listaDeRegistradoresBin.put("10010", "$s4");
+        listaDeRegistradoresBin.put("10100", "$s4");
         listaDeRegistradoresBin.put("10101", "$s5");
         listaDeRegistradoresBin.put("10110", "$s6");
         listaDeRegistradoresBin.put("10111", "$s7");

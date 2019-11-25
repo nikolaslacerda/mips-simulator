@@ -9,6 +9,9 @@ addiu $a1,$a1,5
 and $a2,$a0,$a1
 addiu $a0,$a0,6
 ori $a1,$a0,9
+addiu $s1,$s1,2
+sll $s3,$s1,2
+srl $s2,$s3,1
 
 .data
 a:   .word   11

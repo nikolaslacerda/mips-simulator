@@ -22,14 +22,14 @@ public class Executa {
 	public void ExecutaPrograma() throws Exception {
 
 	     //LUI []
-         //ORI []
+         //ORI [FEITO]
 	     //ADDU [FEITO]
          //ADDIU [FEITO]
          //LW []
          //SW []
          //BEQ []
          //J []
-         //AND []
+         //AND [FEITO]
          //SLL []
          //SRL []
 
@@ -46,7 +46,9 @@ public class Executa {
         System.out.println("OPCODE: " + opcode);
 
         String bitsDeFuncao = instrucao.substring(26,32);
+        String shamt = instrucao.substring(21, 26);
 
+        System.out.println("SHAMT: " + shamt);
         System.out.println("BITS DE FUNCAO: " + bitsDeFuncao);
 
 		// Inicia bloco de controles
@@ -76,7 +78,7 @@ public class Executa {
         String readData2 = (blocoDeControle.getAluSrc() == 0)?bancoDeRegistradores.getValue(readRegister2):signExtend; // MUTEX
         System.out.println("Valor do R2: " + readData2);
 
-        String aluResult = ula.calcula(aluControlResult, readData1, readData2);
+        String aluResult = ula.calcula(aluControlResult, readData1, readData2, shamt);
         System.out.println("Resultado Calculado na ULA: " + aluResult);
 
         // ************ ETAPA MEMORY ***************** //
