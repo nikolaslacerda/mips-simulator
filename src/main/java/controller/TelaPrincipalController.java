@@ -73,11 +73,11 @@ public class TelaPrincipalController implements Initializable {
         String[] instrucoesI = memoriaDeInstrucoes.getInstrucoes();
 
         for (int i = 0; i < memoriaDeInstrucoes.getPosAtual(); i++) {
-            this.data2.add(new TabelaInstrucoes("0", memoriaI[i], instrucoesI[i]));
+            this.data2.add(new TabelaInstrucoes("0x"+converte.to32BitsH(Integer.toHexString(i)), memoriaI[i], instrucoesI[i]));
         }
 
         for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
-            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), converte.binToHex(registrador.getValue())));
+            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), "0x"+converte.to32BitsH(converte.binToHex(registrador.getValue()))));
         }
 
         TabelaRegistradores.setItems(data);
@@ -164,7 +164,7 @@ public class TelaPrincipalController implements Initializable {
         TabelaRegistradores.getItems().clear();
 
         for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
-            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), converte.binToHex(registrador.getValue())));
+            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), "0x"+converte.to32BitsH(converte.binToHex(registrador.getValue()))));
         }
         TabelaRegistradores.setItems(data);
         TabRegColNumero.setComparator(customComparator);

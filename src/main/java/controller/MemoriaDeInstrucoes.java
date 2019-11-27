@@ -2,6 +2,8 @@ package controller;
 
 public class MemoriaDeInstrucoes {
 
+    ConversorDeBits converte = new ConversorDeBits();
+
     //Singleton
     private static MemoriaDeInstrucoes instance;
 
@@ -63,6 +65,14 @@ public class MemoriaDeInstrucoes {
 
     public void pc4(){
         PC++;
+    }
+
+    public String getPC() throws Exception {
+        return converte.to32Bits(Integer.toBinaryString(PC));
+    }
+
+    public void setPC(String PC) {
+        this.PC = Integer.parseInt(PC, 2);
     }
 
     //Imprime

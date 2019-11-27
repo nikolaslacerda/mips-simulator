@@ -71,6 +71,22 @@ public class ConversorDeBits {
         }
     }
 
+    //Converte um hex para 32 bits
+    public String to32BitsH(String hex) throws Exception {
+        if (hex.length() < 8) {
+            int zerosFaltantes = 8 - hex.length();
+            String resultado = "";
+            for (int i = 0; i < zerosFaltantes; i++) {
+                resultado += "0";
+            }
+            return resultado + hex;
+        } else if (hex.length() == 8) {
+            return hex;
+        } else {
+            throw new Exception("ConversorDeBits>to32Bits>Overflow");
+        }
+    }
+
     //Converte um hexadecimal para binario
     public String hexaToBin(String hex) {
         HashMap<Character, String> hexas = new HashMap();
@@ -105,7 +121,7 @@ public class ConversorDeBits {
 
     public String binToHex(String bin) {
         int decimal = Integer.parseInt(bin,2);
-        return "0x" + Integer.toString(decimal,16);
+        return Integer.toString(decimal,16);
     }
 
 }

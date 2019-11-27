@@ -132,7 +132,7 @@ public class BlocoDeControle {
             this.MemWrite = 0;
             this.AluSrc = 1;
             this.RegWrite = 1;
-        } else if (opcode.equals("000100")) { //j
+        } else if (opcode.equals("000010")) { //j
             this.RegDst = 0; //X
             this.Jump = 1;
             this.Branch = 0; //X

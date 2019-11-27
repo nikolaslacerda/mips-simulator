@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="734.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaPrincipalController">
+<VBox prefHeight="734.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaPrincipalController">
   <children>
       <AnchorPane prefHeight="0.0" prefWidth="1200.0">
          <children>
@@ -64,7 +64,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="close" layoutX="1144.0" layoutY="6.0" mnemonicParsing="false" onAction="#exit">
+            <Button fx:id="close" layoutX="1308.0" layoutY="6.0" mnemonicParsing="false" onAction="#exit">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -81,9 +81,9 @@
             </Button>
          </children>
       </AnchorPane>
-    <SplitPane dividerPositions="0.7470784641068448" focusTraversable="true" prefHeight="645.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.6429618768328446" focusTraversable="true" prefHeight="645.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
       <items>
-        <ScrollPane prefHeight="622.0" prefWidth="891.0">
+        <ScrollPane prefHeight="687.0" prefWidth="1003.0">
                <content>
                   <AnchorPane prefHeight="685.0" prefWidth="857.0">
                      <children>
@@ -99,7 +99,7 @@
                                           <Color blue="0.624" green="0.624" red="0.624" fx:id="x81" />
                                        </textFill>
                                     </Label>
-                                    <TableView fx:id="TabelaInstrucao" layoutX="18.0" layoutY="44.0" prefHeight="334.0" prefWidth="847.0">
+                                    <TableView fx:id="TabelaInstrucao" layoutX="19.0" layoutY="45.0" prefHeight="334.0" prefWidth="847.0">
                                       <columns>
                                         <TableColumn fx:id="TabInstColEndereco" editable="false" prefWidth="182.0" sortable="false" text="Endereço" />
                                         <TableColumn fx:id="TabInstColCodigo" editable="false" prefWidth="320.0" sortable="false" text="Código" />
@@ -132,7 +132,7 @@
                   </AnchorPane>
                </content>
         </ScrollPane>
-        <AnchorPane prefHeight="390.0" prefWidth="439.0">
+        <AnchorPane prefHeight="687.0" prefWidth="412.0">
           <children>
             <Label alignment="CENTER" layoutX="15.0" layoutY="14.0" style="&#10;" text="Registradores" textAlignment="CENTER" wrapText="false">
                      <font>
@@ -142,11 +142,11 @@
                         <Color blue="0.624" green="0.624" red="0.624" fx:id="x8" />
                      </textFill>
                   </Label>
-                  <TableView fx:id="TabelaRegistradores" layoutX="15.0" layoutY="42.0" prefHeight="631.0" prefWidth="270.0">
+                  <TableView fx:id="TabelaRegistradores" layoutX="15.0" layoutY="42.0" prefHeight="631.0" prefWidth="337.0">
                     <columns>
-                      <TableColumn fx:id="TabRegColNome" editable="false" prefWidth="58.0" sortable="false" text="Nome" />
-                      <TableColumn fx:id="TabRegColNumero" editable="false" minWidth="4.0" prefWidth="71.0"  text="Número" />
-                        <TableColumn fx:id="TabRegColValor" editable="false" prefWidth="121.0" sortable="false" text="Valor" />
+                      <TableColumn fx:id="TabRegColNome" editable="false" prefWidth="79.66668701171875" sortable="false" text="Nome" />
+                      <TableColumn fx:id="TabRegColNumero" editable="false" minWidth="4.0" prefWidth="117.333251953125" text="Número" />
+                        <TableColumn fx:id="TabRegColValor" editable="false" prefWidth="117.3333740234375" sortable="false" text="Valor" />
                     </columns>
                   </TableView>
           </children>

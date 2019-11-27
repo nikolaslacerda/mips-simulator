@@ -162,16 +162,18 @@ public class LeitorDeArquivo {
     //Retorna o numero de linhas da label para a instrucao j
     public String getTarget(String label) throws Exception {
         ConversorDeBits converte = new ConversorDeBits();
-        int inicioDaMemoria = 4194304;
+        int inicioDaMemoria = 0;
         int labelNum = getNumeroDaLinha(label + ":");
         //System.out.println(label);
         //System.out.println(labelNum);
         int enderecoDeSalto = inicioDaMemoria + labelNum;
+        System.out.println("Endereço de salto: "+enderecoDeSalto);
         //System.out.println(enderecoDeSalto);
-        String enderecoEmHexa = "00" + Integer.toHexString(enderecoDeSalto);
-        //System.out.println(enderecoEmHexa);
-        String enderecoEmBin = converte.hexaToBin(enderecoEmHexa);
-        //System.out.println(enderecoEmBin);
+        //String enderecoEmHexa = "00" + Integer.toHexString(enderecoDeSalto);
+        String enderecoEmHexa = Integer.toHexString(enderecoDeSalto);
+        System.out.println(enderecoEmHexa);
+        String enderecoEmBin = converte.to32Bits(converte.hexaToBin(enderecoEmHexa));
+        System.out.println(enderecoEmBin);
         return enderecoEmBin.substring(4, enderecoEmBin.length() - 2); //Retira 4 bits mais significativos e 2 bits menos significativos
     }
 
@@ -181,7 +183,7 @@ public class LeitorDeArquivo {
     }
 
     public int getNumeroDaLinha(String linha) throws Exception {
-        int linhaNum = 1;
+        int linhaNum = 0;
         Scanner in = new Scanner(new File(LeitorDeArquivo.class.getResource(caminho).toURI()));
         String linhaAtual;
         while (in.hasNextLine()) {
@@ -198,7 +200,7 @@ public class LeitorDeArquivo {
                     String[] aux = linhaAtual.split(" ");
                     if (aux.length > 1) { //label nao conta como + uma linha
                         //System.out.println(linhaAtual);
-                        linhaNum++;
+                        linhaNum+=4;
                     }
                 }
                 throw new Exception("LeitorDeArquivo>getNumeroDaLinha>Label que o beq leva se for verdade nao existe");

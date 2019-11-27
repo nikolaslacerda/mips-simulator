@@ -30,8 +30,8 @@ public class Executa {
          //BEQ []
          //J []
          //AND [FEITO]
-         //SLL []
-         //SRL []
+         //SLL [FEITO]
+         //SRL [FEITO]
 
 	    //String no assemble começa no bit 31 e vai até o 0
 
@@ -40,6 +40,8 @@ public class Executa {
         String instrucao = memoriaDeInstrucoes.getInstrucao();
 
         System.out.println("EXECUTANDO INSTRUÇÃO: " + instrucao + " / " + memoriaDeInstrucoes.getInstrucaoNome());
+
+        memoriaDeInstrucoes.pc4();
 
 		String opcode = instrucao.substring(0, 6);
 
@@ -70,6 +72,14 @@ public class Executa {
         String signExtend = converte.to32Bits(instrucao.substring(16,32)); //signExtend
         System.out.println("Imediato: " + signExtend);
 
+        String shiftLeafJump = (instrucao.substring(6,32)); //
+        System.out.println("J[25-0]: " + shiftLeafJump);
+
+        //Shif left 2 jump
+        shiftLeafJump = "00" + shiftLeafJump;
+        String pc4bitsjump = memoriaDeInstrucoes.getPC().substring(0, 4);
+        String jumpAddress = pc4bitsjump + shiftLeafJump;
+
         String aluControlResult = aluControl.executa(bitsDeFuncao);
         System.out.println("AluCONTROL: " + aluControlResult);
 
@@ -80,6 +90,11 @@ public class Executa {
 
         String aluResult = ula.calcula(aluControlResult, readData1, readData2, shamt);
         System.out.println("Resultado Calculado na ULA: " + aluResult);
+
+        if(blocoDeControle.getJump() == 1){
+            memoriaDeInstrucoes.setPC(jumpAddress);
+            System.out.println("JUMP ADRESS " +jumpAddress);
+        }
 
         // ************ ETAPA MEMORY ***************** //
 
@@ -96,7 +111,7 @@ public class Executa {
         System.out.println("Valor no registrador write: " + bancoDeRegistradores.getValue(writeRegister));
         // ********** FIM DA EXECUCAO ***********/
 
-        memoriaDeInstrucoes.pc4();
+
 	}
 
 }

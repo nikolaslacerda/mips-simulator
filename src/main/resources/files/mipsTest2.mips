@@ -10,8 +10,10 @@ and $a2,$a0,$a1
 addiu $a0,$a0,6
 ori $a1,$a0,9
 addiu $s1,$s1,2
+shifts:
 sll $s3,$s1,2
 srl $s2,$s3,1
+j shifts
 
 .data
 a:   .word   11
