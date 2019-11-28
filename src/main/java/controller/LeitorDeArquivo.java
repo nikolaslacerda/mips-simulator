@@ -36,10 +36,12 @@ public class LeitorDeArquivo {
                         continue; //Ignora linha em branco e comentÃ¡rio
                     }
                     linhaAtual = in.nextLine();
-                    System.out.println(linhaAtual);
+                    //System.out.println(linhaAtual);
                     String label = linhaAtual.split(".word")[0];
+
                     String valor = linhaAtual.split(".word")[1];
-                    memoriaDeDados.writeDado(valor);
+
+                    memoriaDeDados.writeDado(label, valor);
                 }
             }
         }

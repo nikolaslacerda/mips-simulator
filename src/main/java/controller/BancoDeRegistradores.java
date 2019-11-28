@@ -31,14 +31,14 @@ public class BancoDeRegistradores {
         listaDeRegistradores.put("$t5", "00000000000000000000000000000000");
         listaDeRegistradores.put("$t6", "00000000000000000000000000000000");
         listaDeRegistradores.put("$t7", "00000000000000000000000000000000");
-        listaDeRegistradores.put("$s0", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s0", "00000000000000000000000000000011");
         listaDeRegistradores.put("$s1", "00000000000000000000000000000000");
         listaDeRegistradores.put("$s2", "00000000000000000000000000000000");
         listaDeRegistradores.put("$s3", "00000000000000000000000000000000");
         listaDeRegistradores.put("$s4", "00000000000000000000000000000000");
         listaDeRegistradores.put("$s5", "00000000000000000000000000000000");
         listaDeRegistradores.put("$s6", "00000000000000000000000000000000");
-        listaDeRegistradores.put("$s7", "00000000000000000000000000000000");
+        listaDeRegistradores.put("$s7", "00000000000000000000000000001000");
         listaDeRegistradores.put("$t8", "00000000000000000000000000000000");
         listaDeRegistradores.put("$t9", "00000000000000000000000000000000");
         listaDeRegistradores.put("$k0", "00000000000000000000000000000000");
@@ -147,6 +147,14 @@ public class BancoDeRegistradores {
             return listaDeRegistradores.get(listaDeRegistradoresBin.get(bin));
         } else {
             throw new Exception("BancoDeRegistradores>getValue>Registrador Invalido!");
+        }
+    }
+
+    public String getValueByRegister(String register) throws Exception {
+        if (listaDeRegistradores.containsKey(register)) {
+            return listaDeRegistradores.get(register);
+        } else {
+            throw new Exception("BancoDeRegistradores>getValueByRegister>Registrador Invalido!");
         }
     }
 

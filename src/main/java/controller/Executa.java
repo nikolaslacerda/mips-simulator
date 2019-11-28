@@ -4,6 +4,7 @@ public class Executa {
 	private MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
 	private ULA ula = ULA.getInstance();
 	private AluControl aluControl = AluControl.getInstance();
+	private MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
     private BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
     private BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
 	private ConversorDeBits converte = new ConversorDeBits();
@@ -28,7 +29,7 @@ public class Executa {
          //LW []
          //SW []
          //BEQ []
-         //J []
+         //J [FEITO]
          //AND [FEITO]
          //SLL [FEITO]
          //SRL [FEITO]
@@ -100,12 +101,21 @@ public class Executa {
 
         String address = aluResult;
 
-        //String readDataMemory = (blocoDeControle.getMemWrite() == 1)?memoriaDeDados.readDado(address):"null";
-        String writeDataMemory = (blocoDeControle.getMemRead() == 1)?readData2:"null"; //trocar para string(32 bits)
-        String writeDataRegister = (blocoDeControle.getMemToReg() == 1)?writeDataMemory:aluResult; //trocar 32
+        String readDataMemory = (blocoDeControle.getMemRead() == 1)?memoriaDeDados.readData(Integer.parseInt(address, 2)):"00000000000000000000000000000000";
+        System.out.println("READDATA: " + readDataMemory);
+        System.out.println("READDATA: " + readRegister2);
 
+
+        String writeDataMemory = (blocoDeControle.getMemWrite() == 1)?bancoDeRegistradores.getValueByRegister(bancoDeRegistradores.getRegisterByBin(readRegister2)):"00000000000000000000000000000000"; //trocar para string(32 bits)
+        String writeDataRegister = (blocoDeControle.getMemToReg() == 1)?readDataMemory:aluResult;
+
+        System.out.println("writeDataMemory: " + writeDataMemory);
         if (blocoDeControle.getRegWrite() == 1){
             bancoDeRegistradores.setValue(writeRegister, writeDataRegister);
+        }
+
+        if (blocoDeControle.getMemWrite() == 1){
+            memoriaDeDados.writeDado(writeDataMemory, Integer.parseInt(address, 2));
         }
 
         System.out.println("Valor no registrador write: " + bancoDeRegistradores.getValue(writeRegister));

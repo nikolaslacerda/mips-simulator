@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.TabelaInstrucoes;
 import model.TabelaRegistradores;
+import model.TabelaMemoria;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -37,6 +38,15 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     TableColumn<TabelaInstrucoes, String> TabInstColInstrucao;
 
+    //Tabela de Memórioa
+    @FXML
+    TableView<TabelaMemoria> TabelaMemoria;
+    @FXML
+    TableColumn<TabelaMemoria, String> TabMemColEndereco;
+    @FXML
+    TableColumn<TabelaMemoria, String> TabMemColValor;
+
+
     //Botoes
 
     @FXML
@@ -49,132 +59,163 @@ public class TelaPrincipalController implements Initializable {
 
     public ObservableList<TabelaRegistradores> data = FXCollections.observableArrayList();
     public ObservableList<TabelaInstrucoes> data2 = FXCollections.observableArrayList();
+    public ObservableList<TabelaMemoria> data3 = FXCollections.observableArrayList();
+
     ConversorDeBits converte = new ConversorDeBits();
     CustomComparator customComparator = new CustomComparator();
     MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
+    MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
     BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
     HashMap<String, String> listaDeRegistradores = bancoDeRegistradores.getListaDeRegistradores();
     HashMap<String, Integer> listaDeRegistradoresNumeros = bancoDeRegistradores.getListaDeRegistradoresNumeros();
 
 
-
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    	try {
-        TabRegColNome.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowNome"));
-        TabRegColNumero.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowNumero"));
-        TabRegColValor.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowValor"));
+        try {
+            TabRegColNome.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowNome"));
+            TabRegColNumero.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowNumero"));
+            TabRegColValor.setCellValueFactory(new PropertyValueFactory<TabelaRegistradores, String>("rowValor"));
 
-        TabInstColEndereco.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowEndereco"));
-        TabInstColCodigo.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowCodigo"));
-        TabInstColInstrucao.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowInstrucao"));
+            TabInstColEndereco.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowEndereco"));
+            TabInstColCodigo.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowCodigo"));
+            TabInstColInstrucao.setCellValueFactory(new PropertyValueFactory<TabelaInstrucoes, String>("rowInstrucao"));
 
-        MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
-        String[] memoriaI = memoriaDeInstrucoes.getMemoria();
-        String[] instrucoesI = memoriaDeInstrucoes.getInstrucoes();
+            TabMemColEndereco.setCellValueFactory(new PropertyValueFactory<TabelaMemoria, String>("rowEndereco"));
+            TabMemColValor.setCellValueFactory(new PropertyValueFactory<TabelaMemoria, String>("rowValor"));
 
-        for (int i = 0; i < memoriaDeInstrucoes.getPosAtual(); i++) {
-            this.data2.add(new TabelaInstrucoes("0x"+converte.to32BitsH(Integer.toHexString(i)), memoriaI[i], instrucoesI[i]));
+            //MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
+            String[] memoriaI = memoriaDeInstrucoes.getMemoria();
+            String[] instrucoesI = memoriaDeInstrucoes.getInstrucoes();
+            String[] memoriaD = memoriaDeDados.getMemoria();
+
+            for (int i = 0; i < memoriaDeInstrucoes.getPosAtual(); i++) {
+                this.data2.add(new TabelaInstrucoes("0x" + converte.to32BitsH(Integer.toHexString(4194304 + i*4)), memoriaI[i], instrucoesI[i]));
+            }
+
+            for (Map.Entry<String, String> registrador : listaDeRegistradores.entrySet()) {
+                this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), "0x" + converte.to32BitsH(converte.binToHex(registrador.getValue()))));
+            }
+
+            for (int i = 0; i < memoriaD.length; i++) {
+                this.data3.add(new TabelaMemoria("0x" + Integer.toString(10010000+i*4), memoriaD[i]));
+            }
+
+            TabelaRegistradores.setItems(data);
+            TabelaInstrucao.setItems(data2);
+            TabelaMemoria.setItems(data3);
+
+            TabRegColNumero.setComparator(customComparator);
+            TabelaRegistradores.getSortOrder().add(TabRegColNumero);
+
+            styleRowColor();
+
+        } catch (Exception e) {
         }
-
-        for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
-            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), "0x"+converte.to32BitsH(converte.binToHex(registrador.getValue()))));
-        }
-
-        TabelaRegistradores.setItems(data);
-        TabelaInstrucao.setItems(data2);
-
-        TabRegColNumero.setComparator(customComparator);
-        TabelaRegistradores.getSortOrder().add(TabRegColNumero);
-
-        styleRowColor();
-    	}catch (Exception e) {}
 
     }
 
     private void styleRowColor() {
-    	try {
-        Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
-                = //
-                new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
-                    public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
-                        final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
+        try {
+            Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
+                    = //
+                    new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
+                        public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
+                            final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
 
-                            @Override
-                            public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                    setText(null);
-                                } else {
-                                    setText(item);
-                                    TableRow<TabelaInstrucoes> row = getTableRow();
-                                    if(row.getItem().getRowInstrucao()!=null) {
-	                                    if (row.getItem().getRowInstrucao().equals(memoriaDeInstrucoes.getInstrucaoNome())) {
-	                                        row.getStyleClass().clear();
-	                                        row.setStyle("-fx-background-color: palegreen");
-	                                    }
+                                @Override
+                                public void updateItem(String item, boolean empty) {
+                                    super.updateItem(item, empty);
+                                    if (empty) {
+                                        setGraphic(null);
+                                        setText(null);
+                                    } else {
+                                        setText(item);
+                                        TableRow<TabelaInstrucoes> row = getTableRow();
+                                        if (row.getItem().getRowInstrucao() != null) {
+                                            if (row.getItem().getRowInstrucao().equals(memoriaDeInstrucoes.getInstrucaoNome())) {
+                                                row.getStyleClass().clear();
+                                                row.setStyle("-fx-background-color: palegreen");
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-        TabInstColInstrucao.setCellFactory(cellFactory);
-    	}catch (Exception e) {System.out.println("Sdasdasd" + e);}
-    }
-
-    public  void next() {
-    	try {
-        executa.ExecutaPrograma();
-
-        Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
-                = //
-                new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
-                    public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
-                        final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
-
-                            @Override
-                            public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                    setText(null);
-                                } else {
-                                    setText(item);
-                                    TableRow<TabelaInstrucoes> row = getTableRow();
-                                    if (row.getItem().getRowInstrucao().equals(memoriaDeInstrucoes.getInstrucaoNome())) {
-                                        row.getStyleClass().clear();
-                                        row.setStyle("-fx-background-color: palegreen");
-                                    }
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-        TabInstColInstrucao.setCellFactory(cellFactory);
-        atualizaRegistradores();
-    	}catch (Exception e) {}
-    }
-
-    public void atualizaRegistradores(){
-    	try {
-        System.out.println("Entrou aqui");
-        TabelaRegistradores.getItems().clear();
-
-        for(Map.Entry<String, String> registrador: listaDeRegistradores.entrySet()) {
-            this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), "0x"+converte.to32BitsH(converte.binToHex(registrador.getValue()))));
-        }
-        TabelaRegistradores.setItems(data);
-        TabRegColNumero.setComparator(customComparator);
-        TabelaRegistradores.getSortOrder().add(TabRegColNumero);
-    	}catch (Exception e) {
-            System.out.println("ASDASDSADASD");
+                            };
+                            return cell;
+                        }
+                    };
+            TabInstColInstrucao.setCellFactory(cellFactory);
+        } catch (Exception e) {
+            System.out.println("Sdasdasd" + e);
         }
     }
 
-    public void exit(){
+    public void next() {
+        try {
+            executa.ExecutaPrograma();
+
+            Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
+                    = //
+                    new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
+                        public TableCell<TabelaInstrucoes, String> call(final TableColumn<TabelaInstrucoes, String> param) {
+                            final TableCell<TabelaInstrucoes, String> cell = new TableCell<TabelaInstrucoes, String>() {
+
+                                @Override
+                                public void updateItem(String item, boolean empty) {
+                                    super.updateItem(item, empty);
+                                    if (empty) {
+                                        setGraphic(null);
+                                        setText(null);
+                                    } else {
+                                        setText(item);
+                                        TableRow<TabelaInstrucoes> row = getTableRow();
+                                        if (row.getItem().getRowInstrucao().equals(memoriaDeInstrucoes.getInstrucaoNome())) {
+                                            row.getStyleClass().clear();
+                                            row.setStyle("-fx-background-color: palegreen");
+                                        }
+                                    }
+                                }
+                            };
+                            return cell;
+                        }
+                    };
+            TabInstColInstrucao.setCellFactory(cellFactory);
+            atualizaRegistradores();
+            atualizaMemoria();
+        } catch (Exception e) {
+        }
+    }
+
+    public void atualizaRegistradores() {
+        try {
+            TabelaRegistradores.getItems().clear();
+
+            for (Map.Entry<String, String> registrador : listaDeRegistradores.entrySet()) {
+                this.data.add(new TabelaRegistradores(registrador.getKey(), String.valueOf(listaDeRegistradoresNumeros.get(registrador.getKey())), "0x" + converte.to32BitsH(converte.binToHex(registrador.getValue()))));
+            }
+            TabelaRegistradores.setItems(data);
+            TabRegColNumero.setComparator(customComparator);
+            TabelaRegistradores.getSortOrder().add(TabRegColNumero);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void atualizaMemoria() {
+        try {
+            TabelaMemoria.getItems().clear();
+            String[] memoriaD = memoriaDeDados.getMemoria();
+            for (int i = 0; i < memoriaD.length; i++) {
+                this.data3.add(new TabelaMemoria("0x" + Integer.toString(10010000+i*4), memoriaD[i]));
+            }
+
+            TabelaMemoria.setItems(data3);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void exit() {
         System.exit(0);
     }
 }

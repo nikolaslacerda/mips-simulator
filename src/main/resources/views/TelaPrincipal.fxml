@@ -81,7 +81,7 @@
             </Button>
          </children>
       </AnchorPane>
-    <SplitPane dividerPositions="0.6429618768328446" focusTraversable="true" prefHeight="645.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="645.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
       <items>
         <ScrollPane prefHeight="687.0" prefWidth="1003.0">
                <content>
@@ -91,7 +91,7 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="839.0">
                                  <children>
-                                    <Label alignment="CENTER" layoutX="18.0" layoutY="14.0" style="&#10;" text="Instruçoes" textAlignment="CENTER" wrapText="false">
+                                    <Label alignment="CENTER" layoutX="18.0" layoutY="14.0" style="&#10;" text="Instruções" textAlignment="CENTER" wrapText="false">
                                        <font>
                                           <Font size="18.0" fx:id="x71" />
                                        </font>
@@ -120,8 +120,8 @@
                                     </Label>
                                     <TableView fx:id="TabelaMemoria" layoutX="14.0" layoutY="57.0" prefHeight="200.0" prefWidth="847.0">
                                       <columns>
-                                        <TableColumn fx:id="TabMemColEndereco" prefWidth="323.0" text="Endereço" visible="false" />
-                                        <TableColumn fx:id="TabMemColValor" editable="false" prefWidth="523.0" sortable="false" text="Valor" />
+                                          <TableColumn fx:id="TabMemColEndereco" prefWidth="237.00003051757812" text="Endereço" />
+                                        <TableColumn fx:id="TabMemColValor" editable="false" minWidth="2.999969482421875" prefWidth="417.0000305175781" sortable="false" text="Valor" />
                                       </columns>
                                     </TableView>
                                  </children>
