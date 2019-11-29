@@ -149,10 +149,10 @@
                         <TableColumn fx:id="TabRegColValor" editable="false" prefWidth="117.3333740234375" sortable="false" text="Valor" />
                     </columns>
                   </TableView>
-                  <TableView layoutX="375.0" layoutY="45.0" prefHeight="200.0" prefWidth="150.0">
+                  <TableView fx:id="TabelaControle" layoutX="375.0" layoutY="45.0" prefHeight="270.0" prefWidth="159.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Nome" />
-                      <TableColumn minWidth="0.0" prefWidth="74.0" text="Sinal" />
+                      <TableColumn fx:id="TabConColNome" prefWidth="85.6666259765625" text="Nome" />
+                      <TableColumn fx:id="TabConColSinal" minWidth="0.0" prefWidth="71.0" text="Sinal" />
                     </columns>
                   </TableView>
                   <Label alignment="CENTER" layoutX="374.0" layoutY="14.0" style="&#10;" text="Controle" textAlignment="CENTER" wrapText="false">

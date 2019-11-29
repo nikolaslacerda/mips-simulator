@@ -10,8 +10,10 @@ import javafx.util.Callback;
 import model.TabelaInstrucoes;
 import model.TabelaRegistradores;
 import model.TabelaMemoria;
+import model.TabelaControle;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -38,13 +40,21 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     TableColumn<TabelaInstrucoes, String> TabInstColInstrucao;
 
-    //Tabela de Memórioa
+    //Tabela de Memória
     @FXML
     TableView<TabelaMemoria> TabelaMemoria;
     @FXML
     TableColumn<TabelaMemoria, String> TabMemColEndereco;
     @FXML
     TableColumn<TabelaMemoria, String> TabMemColValor;
+
+    //Tabela de Sinais De Controle
+    @FXML
+    TableView<TabelaControle> TabelaControle;
+    @FXML
+    TableColumn<TabelaControle, String> TabConColNome;
+    @FXML
+    TableColumn<TabelaControle, String> TabConColSinal;
 
 
     //Botoes
@@ -60,14 +70,17 @@ public class TelaPrincipalController implements Initializable {
     public ObservableList<TabelaRegistradores> data = FXCollections.observableArrayList();
     public ObservableList<TabelaInstrucoes> data2 = FXCollections.observableArrayList();
     public ObservableList<TabelaMemoria> data3 = FXCollections.observableArrayList();
+    public ObservableList<TabelaControle> data4 = FXCollections.observableArrayList();
 
     ConversorDeBits converte = new ConversorDeBits();
     CustomComparator customComparator = new CustomComparator();
     MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
     MemoriaDeDados memoriaDeDados = MemoriaDeDados.getInstance();
     BancoDeRegistradores bancoDeRegistradores = BancoDeRegistradores.getInstance();
+    BlocoDeControle blocoDeControle = BlocoDeControle.getInstance();
     HashMap<String, String> listaDeRegistradores = bancoDeRegistradores.getListaDeRegistradores();
     HashMap<String, Integer> listaDeRegistradoresNumeros = bancoDeRegistradores.getListaDeRegistradoresNumeros();
+    HashMap<String, Integer> sinaisDeControle = blocoDeControle.getSinaisDeControle();
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,6 +95,9 @@ public class TelaPrincipalController implements Initializable {
 
             TabMemColEndereco.setCellValueFactory(new PropertyValueFactory<TabelaMemoria, String>("rowEndereco"));
             TabMemColValor.setCellValueFactory(new PropertyValueFactory<TabelaMemoria, String>("rowValor"));
+
+            TabConColNome.setCellValueFactory(new PropertyValueFactory<TabelaControle, String>("rowNome"));
+            TabConColSinal.setCellValueFactory(new PropertyValueFactory<TabelaControle, String>("rowSinal"));
 
             //MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
             String[] memoriaI = memoriaDeInstrucoes.getMemoria();
@@ -100,12 +116,19 @@ public class TelaPrincipalController implements Initializable {
                 this.data3.add(new TabelaMemoria("0x" + Integer.toString(10010000+i*4), memoriaD[i]));
             }
 
+            for (Map.Entry<String, Integer> sinal : sinaisDeControle.entrySet()) {
+                this.data4.add(new TabelaControle(sinal.getKey(), Integer.toString(sinal.getValue())));
+            }
+
             TabelaRegistradores.setItems(data);
             TabelaInstrucao.setItems(data2);
             TabelaMemoria.setItems(data3);
+            TabelaControle.setItems(data4);
 
             TabRegColNumero.setComparator(customComparator);
             TabelaRegistradores.getSortOrder().add(TabRegColNumero);
+            TabelaControle.getSortOrder().add(TabConColNome);
+
 
             styleRowColor();
 
@@ -151,8 +174,11 @@ public class TelaPrincipalController implements Initializable {
 
     public void next() {
         try {
-            executa.ExecutaPrograma();
 
+
+            executa.ExecutaPrograma();
+            atualizaControle();
+            
             Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
                     = //
                     new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
@@ -181,6 +207,7 @@ public class TelaPrincipalController implements Initializable {
             TabInstColInstrucao.setCellFactory(cellFactory);
             atualizaRegistradores();
             atualizaMemoria();
+
         } catch (Exception e) {
         }
     }
@@ -209,6 +236,24 @@ public class TelaPrincipalController implements Initializable {
             }
 
             TabelaMemoria.setItems(data3);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void atualizaControle() {
+        try {
+            HashMap<String, Integer> sinaisDeControle = blocoDeControle.getSinaisDeControle();
+
+            TabelaControle.getItems().clear();
+
+            for (Map.Entry<String, Integer> sinal : sinaisDeControle.entrySet()) {
+                this.data4.add(new TabelaControle(sinal.getKey(), Integer.toString(sinal.getValue())));
+            }
+
+            TabelaControle.setItems(data4);
+            TabelaControle.getSortOrder().add(TabConColNome);
 
         } catch (Exception e) {
             System.out.println(e);

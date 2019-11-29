@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.HashMap;
+
 public class BlocoDeControle {
     private int RegDst;
     private int Jump;
@@ -181,6 +183,21 @@ public class BlocoDeControle {
     	System.out.println("MemToReg: " + this.MemToReg);
     	System.out.println("AluOp0 - AluOp1: " + this.AluOp0 + " - "+ this.AluOp1);
     	System.out.println("AluSrc: " + this.AluSrc);
+    }
+
+    public HashMap<String, Integer> getSinaisDeControle() {
+        HashMap<String, Integer> sinais = new HashMap<>();
+        sinais.put("Jump", this.Jump);
+        sinais.put("RegDst", this.RegDst);
+        sinais.put("RegWrite", this.RegWrite);
+        sinais.put("Branch", this.Branch);
+        sinais.put("MemRead", this.MemRead);
+        sinais.put("MemWrite", this.MemWrite);
+        sinais.put("MemToReg", this.MemToReg);
+        sinais.put("AluOp0", this.AluOp0);
+        sinais.put("AluOp1", this.AluOp1);
+        sinais.put("AluSrc", this.AluSrc);
+        return sinais;
     }
 
 }
