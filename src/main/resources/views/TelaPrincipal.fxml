@@ -16,7 +16,7 @@
 
 <VBox prefHeight="734.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaPrincipalController">
   <children>
-      <AnchorPane prefHeight="0.0" prefWidth="1200.0">
+      <AnchorPane prefHeight="0.0" prefWidth="1300.0">
          <children>
             <ImageView fitHeight="45.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="next" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#next">
@@ -81,13 +81,13 @@
             </Button>
          </children>
       </AnchorPane>
-    <SplitPane dividerPositions="0.5843108504398827" focusTraversable="true" prefHeight="645.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.5263929618768328" focusTraversable="true" prefHeight="645.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
       <items>
-        <ScrollPane prefHeight="687.0" prefWidth="893.0">
+        <ScrollPane prefHeight="687.0" prefWidth="760.0">
                <content>
-                  <AnchorPane prefHeight="685.0" prefWidth="793.0">
+                  <AnchorPane prefHeight="685.0" prefWidth="713.0">
                      <children>
-                        <SplitPane dividerPositions="0.5880640465793304" layoutX="-5.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="675.0" prefWidth="795.0">
+                        <SplitPane dividerPositions="0.5880640465793304" layoutX="-5.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="675.0" prefWidth="718.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="839.0">
                                  <children>
@@ -99,11 +99,11 @@
                                           <Color blue="0.624" green="0.624" red="0.624" fx:id="x81" />
                                        </textFill>
                                     </Label>
-                                    <TableView fx:id="TabelaInstrucao" layoutX="19.0" layoutY="45.0" prefHeight="334.0" prefWidth="756.0">
+                                    <TableView fx:id="TabelaInstrucao" layoutX="19.0" layoutY="45.0" prefHeight="334.0" prefWidth="680.0">
                                       <columns>
-                                        <TableColumn fx:id="TabInstColEndereco" editable="false" prefWidth="182.0" sortable="false" text="Endereço" />
-                                        <TableColumn fx:id="TabInstColCodigo" editable="false" prefWidth="320.0" sortable="false" text="Código" />
-                                          <TableColumn fx:id="TabInstColInstrucao" editable="false" prefWidth="233.0" sortable="false" text="Instrução" />
+                                        <TableColumn fx:id="TabInstColEndereco" editable="false" prefWidth="144.66665649414062" sortable="false" text="Endereço" />
+                                        <TableColumn fx:id="TabInstColCodigo" editable="false" prefWidth="299.3333435058594" sortable="false" text="Código" />
+                                          <TableColumn fx:id="TabInstColInstrucao" editable="false" prefWidth="216.33331298828125" sortable="false" text="Instrução" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -118,10 +118,10 @@
                                           <Color blue="0.624" green="0.624" red="0.624" fx:id="x811" />
                                        </textFill>
                                     </Label>
-                                    <TableView fx:id="TabelaMemoria" layoutX="14.0" layoutY="57.0" prefHeight="200.0" prefWidth="763.0">
+                                    <TableView fx:id="TabelaMemoria" layoutX="14.0" layoutY="57.0" prefHeight="200.0" prefWidth="680.0">
                                       <columns>
-                                          <TableColumn fx:id="TabMemColEndereco" prefWidth="237.00003051757812" text="Endereço" />
-                                        <TableColumn fx:id="TabMemColValor" editable="false" minWidth="2.999969482421875" prefWidth="417.0000305175781" sortable="false" text="Valor" />
+                                          <TableColumn fx:id="TabMemColEndereco" prefWidth="136.6666717529297" text="Endereço" />
+                                        <TableColumn fx:id="TabMemColValor" editable="false" minWidth="2.999969482421875" prefWidth="521.0" sortable="false" text="Valor" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -149,13 +149,13 @@
                         <TableColumn fx:id="TabRegColValor" editable="false" prefWidth="117.3333740234375" sortable="false" text="Valor" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="TabelaControle" layoutX="375.0" layoutY="45.0" prefHeight="270.0" prefWidth="159.0">
+                  <TableView fx:id="TabelaControle" layoutX="370.0" layoutY="45.0" prefHeight="269.0" prefWidth="253.0">
                     <columns>
-                      <TableColumn fx:id="TabConColNome" prefWidth="85.6666259765625" text="Nome" />
-                      <TableColumn fx:id="TabConColSinal" minWidth="0.0" prefWidth="71.0" text="Sinal" />
+                      <TableColumn fx:id="TabConColNome" prefWidth="126.0" text="Nome" />
+                      <TableColumn fx:id="TabConColSinal" minWidth="0.0" prefWidth="125.0" text="Sinal" />
                     </columns>
                   </TableView>
-                  <Label alignment="CENTER" layoutX="374.0" layoutY="14.0" style="&#10;" text="Controle" textAlignment="CENTER" wrapText="false">
+                  <Label alignment="CENTER" layoutX="369.0" layoutY="14.0" style="&#10;" text="Controle" textAlignment="CENTER" wrapText="false">
                      <font>
                         <Font size="18.0" fx:id="x72" />
                      </font>
@@ -163,6 +163,20 @@
                         <Color blue="0.624" green="0.624" red="0.624" fx:id="x82" />
                      </textFill>
                   </Label>
+                  <Label alignment="CENTER" layoutX="369.0" layoutY="333.0" style="&#10;" text="Barramentos" textAlignment="CENTER" wrapText="false">
+                     <font>
+                        <Font size="18.0" fx:id="x721" />
+                     </font>
+                     <textFill>
+                        <Color blue="0.624" green="0.624" red="0.624" fx:id="x821" />
+                     </textFill>
+                  </Label>
+                  <TableView fx:id="TabelaBarramentos" layoutX="370.0" layoutY="360.0" prefHeight="313.0" prefWidth="253.0">
+                    <columns>
+                      <TableColumn fx:id="TabBarramentosNome" prefWidth="117.6666259765625" text="Nome" />
+                      <TableColumn fx:id="TabBarramentosValor" prefWidth="116.3333740234375" text="Valor" />
+                    </columns>
+                  </TableView>
           </children>
         </AnchorPane>
       </items>

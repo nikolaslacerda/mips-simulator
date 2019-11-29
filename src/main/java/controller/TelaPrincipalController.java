@@ -11,6 +11,7 @@ import model.TabelaInstrucoes;
 import model.TabelaRegistradores;
 import model.TabelaMemoria;
 import model.TabelaControle;
+import model.TabelaBarramentos;
 
 import java.net.URL;
 import java.util.Comparator;
@@ -56,6 +57,13 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     TableColumn<TabelaControle, String> TabConColSinal;
 
+    //Tabela Barramentos
+    @FXML
+    TableView<TabelaBarramentos> TabelaBarramentos;
+    @FXML
+    TableColumn<TabelaBarramentos, String> TabBarramentosNome;
+    @FXML
+    TableColumn<TabelaBarramentos, String> TabBarramentosValor;
 
     //Botoes
 
@@ -71,6 +79,7 @@ public class TelaPrincipalController implements Initializable {
     public ObservableList<TabelaInstrucoes> data2 = FXCollections.observableArrayList();
     public ObservableList<TabelaMemoria> data3 = FXCollections.observableArrayList();
     public ObservableList<TabelaControle> data4 = FXCollections.observableArrayList();
+    public ObservableList<TabelaBarramentos> data5 = FXCollections.observableArrayList();
 
     ConversorDeBits converte = new ConversorDeBits();
     CustomComparator customComparator = new CustomComparator();
@@ -81,6 +90,7 @@ public class TelaPrincipalController implements Initializable {
     HashMap<String, String> listaDeRegistradores = bancoDeRegistradores.getListaDeRegistradores();
     HashMap<String, Integer> listaDeRegistradoresNumeros = bancoDeRegistradores.getListaDeRegistradoresNumeros();
     HashMap<String, Integer> sinaisDeControle = blocoDeControle.getSinaisDeControle();
+    Barramentos barramento = Barramentos.getInstance();
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -99,10 +109,14 @@ public class TelaPrincipalController implements Initializable {
             TabConColNome.setCellValueFactory(new PropertyValueFactory<TabelaControle, String>("rowNome"));
             TabConColSinal.setCellValueFactory(new PropertyValueFactory<TabelaControle, String>("rowSinal"));
 
+            TabBarramentosNome.setCellValueFactory(new PropertyValueFactory<TabelaBarramentos, String>("rowNome"));
+            TabBarramentosValor.setCellValueFactory(new PropertyValueFactory<TabelaBarramentos, String>("rowValor"));
+
             //MemoriaDeInstrucoes memoriaDeInstrucoes = MemoriaDeInstrucoes.getInstance();
             String[] memoriaI = memoriaDeInstrucoes.getMemoria();
             String[] instrucoesI = memoriaDeInstrucoes.getInstrucoes();
             String[] memoriaD = memoriaDeDados.getMemoria();
+            String[] barramentos = barramento.getBarramentos();
 
             for (int i = 0; i < memoriaDeInstrucoes.getPosAtual(); i++) {
                 this.data2.add(new TabelaInstrucoes("0x" + converte.to32BitsH(Integer.toHexString(4194304 + i*4)), memoriaI[i], instrucoesI[i]));
@@ -120,10 +134,16 @@ public class TelaPrincipalController implements Initializable {
                 this.data4.add(new TabelaControle(sinal.getKey(), Integer.toString(sinal.getValue())));
             }
 
+            for (int i = 0; i < barramentos.length; i++) {
+                String s[]=barramentos[i].split(" ");
+                this.data5.add(new TabelaBarramentos(s[0],Integer.toString(Integer.parseInt(s[1],2))));
+            }
+
             TabelaRegistradores.setItems(data);
             TabelaInstrucao.setItems(data2);
             TabelaMemoria.setItems(data3);
             TabelaControle.setItems(data4);
+            TabelaBarramentos.setItems(data5);
 
             TabRegColNumero.setComparator(customComparator);
             TabelaRegistradores.getSortOrder().add(TabRegColNumero);
@@ -178,7 +198,7 @@ public class TelaPrincipalController implements Initializable {
 
             executa.ExecutaPrograma();
             atualizaControle();
-            
+
             Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>> cellFactory
                     = //
                     new Callback<TableColumn<TabelaInstrucoes, String>, TableCell<TabelaInstrucoes, String>>() {
@@ -207,6 +227,7 @@ public class TelaPrincipalController implements Initializable {
             TabInstColInstrucao.setCellFactory(cellFactory);
             atualizaRegistradores();
             atualizaMemoria();
+            atualizaBarramentos();
 
         } catch (Exception e) {
         }
@@ -255,6 +276,20 @@ public class TelaPrincipalController implements Initializable {
             TabelaControle.setItems(data4);
             TabelaControle.getSortOrder().add(TabConColNome);
 
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void atualizaBarramentos() {
+        try {
+            TabelaBarramentos.getItems().clear();
+            String[] barramentos=barramento.getBarramentos();
+            for (int i = 0; i < barramentos.length; i++) {
+                String s[]=barramentos[i].split(" ");
+                this.data5.add(new TabelaBarramentos(s[0],Integer.toString(Integer.parseInt(s[1],2))));
+            }
+            TabelaBarramentos.setItems(data5);
         } catch (Exception e) {
             System.out.println(e);
         }
