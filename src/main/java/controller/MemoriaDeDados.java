@@ -72,7 +72,7 @@ public class MemoriaDeDados {
         }
         this.memoria[pos] = Integer.toString(Integer.parseInt(dado, 2)); //Se tiver um dado sera sobreescrito
     }
-    
+
     //Retorna memoria
     public String[] getMemoria() {
         return this.memoria;
@@ -89,4 +89,6 @@ public class MemoriaDeDados {
             }
         }
     }
+
+
 }

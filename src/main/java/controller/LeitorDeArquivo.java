@@ -128,7 +128,7 @@ public class LeitorDeArquivo {
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1]));
             String offset = getOffset(instrucao, registradores[2]);
-            //System.out.println(offset);
+            System.out.println("LINHA QUE TÁ: "+offset);
             return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(offset);
 
         } else if (instrucaoAtual.equals("j")) {
@@ -183,7 +183,7 @@ public class LeitorDeArquivo {
 
     //Retorna o numero de linhas da label para a instrucao beq
     public String getOffset(String instrucao, String label) throws Exception {
-        return Integer.toBinaryString(getNumeroDaLinha(label + ":") - getNumeroDaLinha(instrucao));
+        return Integer.toBinaryString(getNumeroDaLinha(label + ":")/4 - getNumeroDaLinha(instrucao)/4);
     }
 
     public int getNumeroDaLinha(String linha) throws Exception {
