@@ -110,14 +110,16 @@ public class LeitorDeArquivo {
         } else if (instrucaoAtual.equals("lw")) {
             String opcode = "100011";
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1].split("\\(")[1].replace(")", "")));
-            String offset = registradores[1].split("\\(")[0];
+            int numCorrecao = Integer.parseInt(registradores[1].split("\\(")[0].replace(" ",""));
+            String offset = Integer.toBinaryString(numCorrecao/4); // Divisão por causa da memoria que comeca vai de um e um
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(offset);
 
         } else if (instrucaoAtual.equals("sw")) {
             String opcode = "101011";
             String rs = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[1].split("\\(")[1].replace(")", "")));
-            String offset = registradores[1].split("\\(")[0];
+            int numCorrecao = Integer.parseInt(registradores[1].split("\\(")[0].replace(" ",""));
+            String offset = Integer.toBinaryString(numCorrecao/4); // Divisão por causa da memoria que comeca vai de um e um
             String rt = Integer.toBinaryString(listaDeR.getRegisterNumber(registradores[0]));
             return opcode + converte.to5Bits(rs) + converte.to5Bits(rt) + converte.to16Bits(offset);
 
